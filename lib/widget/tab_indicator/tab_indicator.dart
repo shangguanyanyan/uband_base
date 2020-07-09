@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -113,8 +112,6 @@ class _HomeworkTabPainter extends BoxPainter {
     assert(configuration != null);
     assert(configuration.size != null);
     final Rect rect = offset & configuration.size;
-    print(
-        "dx:${offset.dx},dy:${offset.dy},configuration:${configuration.size}");
     final TextDirection textDirection = configuration.textDirection;
 
     switch (shapeType) {
