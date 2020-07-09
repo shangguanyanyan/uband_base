@@ -180,7 +180,7 @@ packages:
   ubandbase:
     dependency: "direct main"
     description:
-      path: "../../uband_base"
+      path: "../.."
       relative: true
     source: path
     version: "0.0.1"

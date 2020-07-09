@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:ubandbase/constant/constant.dart';
 import 'package:ubandbase/export.dart';
 import 'package:ubandbase/utils/utils.dart';
-import 'package:ubandbase_example/my_paint.dart';
+
+import 'my_paint.dart';
+
 
 void main() {
   Adapt.init(designWidth: 375);

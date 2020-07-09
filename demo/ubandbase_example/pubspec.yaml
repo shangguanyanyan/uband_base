@@ -25,7 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   ubandbase:
-    path: ../../uband_base
+    path: ../../../uband_base
 dev_dependencies:
   flutter_test:
     sdk: flutter
