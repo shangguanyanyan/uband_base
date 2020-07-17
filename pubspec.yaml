@@ -16,7 +16,7 @@ dependencies:
   flutter_custom_dialog: ^1.0.20
   cookie_jar: ^1.0.0
   dio:
-  flutter_html: ^0.11.1
+  flutter_html:
 dev_dependencies:
   flutter_test:
     sdk: flutter
