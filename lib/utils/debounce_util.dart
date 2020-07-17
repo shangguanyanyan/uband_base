@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'dart:developer';
+
 /// 防抖
 Function debounce(Function fn, [int t = 30]) {
   Timer _debounce;
@@ -8,6 +10,7 @@ Function debounce(Function fn, [int t = 30]) {
     if (_debounce?.isActive ?? false) _debounce.cancel();
 
     _debounce = Timer(Duration(milliseconds: t), () {
+      log("tick:${_debounce.tick}");
       fn();
     });
   };

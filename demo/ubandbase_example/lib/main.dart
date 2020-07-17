@@ -39,15 +39,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       isScrollable: true,
       indicator: TabIndicator(
           borderSide: BorderSide(
-              width: Adapt.px(2), color: ColorUtil.hex(Colour.thunder)),
+              width: Adapt.px(2), color: ColorUtil.hex(BaseColour.thunder)),
           shapeType: ShapeType.curve,
           radius: Adapt.px(5),
           wantWidth: Adapt.px(30)),
       labelPadding: EdgeInsets.symmetric(vertical: Adapt.px(10)),
-      labelColor: ColorUtil.hex(Colour.thunder),
+      labelColor: ColorUtil.hex(BaseColour.thunder),
       labelStyle:
           TextStyle(fontSize: Adapt.fontPx(14), fontWeight: FontWeight.bold),
-      unselectedLabelColor: ColorUtil.hex(Colour.thunder, alpha: 0.35),
+      unselectedLabelColor: ColorUtil.hex(BaseColour.thunder, alpha: 0.35),
       unselectedLabelStyle: TextStyle(fontSize: Adapt.fontPx(14)),
       tabs: <Widget>[
         Container(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ubandbase/constant/constant.dart';
 import 'package:ubandbase/utils/utils.dart';
 
-
 class PageContainer extends StatefulWidget {
   /// 标题
   final String _title;
@@ -24,7 +23,7 @@ class PageContainer extends StatefulWidget {
   final Color backgroundColor;
 
   /// 返回键按钮，showAppBar=true且customAppBar=null时有效
-  final Icon leadingIcon;
+  final String leadingIcon;
 
   /// 点击空白处页面，移除输入框焦点
   final bool clickBlankToBlur;
@@ -85,6 +84,7 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
     if (widget.customAppBar != null) {
       return widget.customAppBar;
     }
+
     return AppBar(
       title: widget.title != null
           ? Quick.buildText(widget.title, fontSize: 17).bold().build()
@@ -93,18 +93,15 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
       elevation: 0,
       backgroundColor: Colors.white,
       leading: canBack
-          ? GestureDetector(
-              onTap: _handleBack,
-              child: widget.leadingIcon ??
-                  Container(
-                    height: kToolbarHeight,
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(),
-                    child: Container(
-                        padding: EdgeInsets.symmetric(
-                            vertical: Adapt.px(10), horizontal: Adapt.px(15)),
-                        child: Image.asset(Bilder.courseLeading)),
-                  ),
+          ? IconButton(
+              iconSize: Adapt.px(24),
+              onPressed: _handleBack,
+              color: Colors.black,
+              icon: ImageIcon(
+                AssetImage(
+                  widget.leadingIcon ?? Bilder.courseLeading,
+                ),
+              ),
             )
           : null,
       actions: widget.actions,

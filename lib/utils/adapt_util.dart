@@ -21,6 +21,7 @@ class Adapt {
   /// [designWidth] 设计稿宽度
   static init({int designWidth, bool ignoreTextScale}){
     designWidth ??= _designWidth;
+    print("${_mediaQueryData.size}");
     _ratio = _mediaQueryData.size.width / designWidth;
     _ignoreTextScale ??= ignoreTextScale;
   }

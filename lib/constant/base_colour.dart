@@ -1,4 +1,4 @@
-class Colour {
+class BaseColour {
   /// #000000
   static String get defaults => black;
 
