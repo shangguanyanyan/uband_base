@@ -6,31 +6,36 @@ import 'package:ubandbase/utils/utils.dart';
 
 class Base {
   /// appbar 返回键
-  static Widget buildLeading(VoidCallback callback, {Widget widget}) {
+  static Widget buildLeading(VoidCallback callback,
+      {Widget widget, String icon, Color color}) {
     if (widget == null) {
-      widget = Container(
-        height: kToolbarHeight,
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(),
-        child: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: Adapt.px(10), horizontal: Adapt.px(15)),
-            child: Image.asset(Bilder.courseLeading)),
+      widget = IconButton(
+        onPressed: () => callback?.call(),
+        color: color ?? Colors.black,
+        icon: ImageIcon(
+          AssetImage(
+            icon ?? Bilder.courseLeading,
+          ),
+          size: Adapt.px(20),
+        ),
+      );
+    } else {
+      widget = GestureDetector(
+        onTap: () => callback(),
+        child: widget,
       );
     }
-    return GestureDetector(
-      onTap: () => callback(),
-      child: widget,
-    );
+    return widget;
   }
 
   /// 圆角卡片
-  static Widget buildCard({@required Widget child,
-    double radius,
-    Color color = Colors.white,
-    AlignmentGeometry alignment = AlignmentDirectional.center,
-    EdgeInsetsGeometry margin = EdgeInsets.zero,
-    EdgeInsetsGeometry padding = EdgeInsets.zero}) {
+  static Widget buildCard(
+      {@required Widget child,
+      double radius,
+      Color color = Colors.white,
+      AlignmentGeometry alignment = AlignmentDirectional.center,
+      EdgeInsetsGeometry margin = EdgeInsets.zero,
+      EdgeInsetsGeometry padding = EdgeInsets.zero}) {
     return Container(
       alignment: alignment,
       padding: padding,
@@ -44,15 +49,19 @@ class Base {
   /// appbar 按钮
   static Widget buildActionButton(String action,
       {AlignmentDirectional alignment,
-        Widget positioned,
-        VoidCallback callback}) {
+      String describe,
+      double size = 24,
+      Widget positioned,
+      VoidCallback callback}) {
     return Stack(
       alignment: alignment ?? AlignmentDirectional.topStart,
       children: <Widget>[
         IconButton(
+          iconSize: kToolbarHeight,
           onPressed: callback ?? () {},
           icon: ImageIcon(
             AssetImage(action),
+            size: size,
             color: ColorUtil.hex(BaseColour.black),
           ),
         ),

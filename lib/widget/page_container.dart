@@ -38,20 +38,19 @@ class PageContainer extends StatefulWidget {
   /// 页面退出路由栈时的监听回调
   final VoidCallback onPopNextCallback;
 
-  PageContainer(
-      {Key key,
-      Widget child,
-      String title,
-      List<Widget> actions,
-      this.showAppBar = true,
-      this.customAppBar,
-      this.resizeToAvoidBottomInset = true,
-      this.backgroundColor = const Color(0xffffffff),
-      this.leadingIcon,
-      this.clickBlankToBlur = false,
-      this.routeObserver,
-      this.onPushCallback,
-      this.onPopNextCallback})
+  PageContainer({Key key,
+    Widget child,
+    String title,
+    List<Widget> actions,
+    this.showAppBar = true,
+    this.customAppBar,
+    this.resizeToAvoidBottomInset = true,
+    this.backgroundColor = const Color(0xffffffff),
+    this.leadingIcon,
+    this.clickBlankToBlur = false,
+    this.routeObserver,
+    this.onPushCallback,
+    this.onPopNextCallback})
       : _child = child,
         _title = title,
         _actions = actions,
@@ -95,15 +94,15 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
       backgroundColor: Colors.white,
       leading: canBack
           ? IconButton(
-              iconSize: Adapt.px(24),
-              onPressed: _handleBack,
-              color: Colors.black,
-              icon: ImageIcon(
-                AssetImage(
-                  widget.leadingIcon ?? Bilder.courseLeading,
-                ),
-              ),
-            )
+        onPressed: _handleBack,
+        color: Colors.black,
+        icon: ImageIcon(
+          AssetImage(
+            widget.leadingIcon ?? Bilder.courseLeading,
+          ),
+          size: Adapt.px(20),
+        ),
+      )
           : null,
       actions: widget.actions,
     );
