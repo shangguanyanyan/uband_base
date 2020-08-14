@@ -154,6 +154,6 @@ class _HomeworkTabPainter extends BoxPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
-    canvas.drawArc(indicator, pi * 0.25, pi*0.5 , false, paint);
+    canvas.drawArc(indicator, pi/4, pi/2 , false, paint);
   }
 }
