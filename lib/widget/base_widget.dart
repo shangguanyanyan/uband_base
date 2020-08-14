@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:ubandbase/constant/constant.dart';
+import 'package:ubandbase/constant/export.dart';
 import 'package:ubandbase/utils/utils.dart';
 
 class Base {
@@ -11,12 +11,11 @@ class Base {
     if (widget == null) {
       widget = IconButton(
         onPressed: () => callback?.call(),
-        color: color ?? Colors.black,
-        icon: ImageIcon(
-          AssetImage(
-            icon ?? Bilder.courseLeading,
-          ),
-          size: Adapt.px(20),
+        color: color ?? Colors.black87,
+        icon: Icon(
+          Icons.chevron_left,
+          size: Adapt.px(30),
+          color: color,
         ),
       );
     } else {

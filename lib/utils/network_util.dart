@@ -21,6 +21,8 @@ class NetworkUtil {
 
   static ResponseType _responseType;
 
+  static bool _receiveDataWhenStatusError;
+
   static CookieJar _cookieJar;
 
   static String _authStringName;
@@ -42,7 +44,7 @@ class NetworkUtil {
         extra: null,
         headers: {'User-Agent': _userAgent},
         validateStatus: null,
-        receiveDataWhenStatusError: false,
+        receiveDataWhenStatusError: _receiveDataWhenStatusError,
         followRedirects: _followRedirects,
         responseType: _responseType,
       ));
@@ -78,6 +80,7 @@ class NetworkUtil {
     int timeout,
     String userAgent,
     bool followRedirects,
+    bool receiveDataWhenStatusError,
     ResponseType responseType,
     String authStringName,
     bool debug,
@@ -87,6 +90,7 @@ class NetworkUtil {
     _userAgent = userAgent ?? _userAgent;
     _followRedirects = followRedirects ?? false;
     _responseType = responseType ?? ResponseType.json;
+    _receiveDataWhenStatusError = receiveDataWhenStatusError ?? false;
     _debug = debug ?? false;
     _cookieJar = cookieJar ?? PersistCookieJar();
     _authStringName = authStringName ?? 'X-Auth-Token';
@@ -216,9 +220,9 @@ class NetworkUtil {
     List<Cookie> cookieList = _cookieJar.loadForRequest(Uri.parse(_baseUrl));
     bool result = false;
     if (_authString != null) {
-      result =  true;
+      result = true;
     }
-   result = cookieList.any((e) {
+    result = cookieList.any((e) {
       return e.name == _authStringName && e.value != "";
     });
     return result;

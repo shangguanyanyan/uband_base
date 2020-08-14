@@ -1,8 +1,9 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 
 /// 封装了基本的弹框效果
-class BaseDialog{
+class BaseDialog {
   BaseDialog._();
 
   /// 弹框从底部弹出效果
@@ -13,6 +14,9 @@ class BaseDialog{
     dialog.gravity = Gravity.bottom;
     dialog.gravityAnimationEnable = true;
     dialog.backgroundColor = Colors.transparent;
+    dialog.dismissCallBack = () {
+      log("onDismiss");
+    };
     dialog.widget(widget);
     if (autoShow) {
       dialog.show();

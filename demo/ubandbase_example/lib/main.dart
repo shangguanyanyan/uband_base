@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ubandbase/constant/constant.dart';
+import 'package:ubandbase/constant/export.dart';
 import 'package:ubandbase/export.dart';
 import 'package:ubandbase/utils/utils.dart';
 
