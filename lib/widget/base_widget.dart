@@ -15,7 +15,6 @@ class Base {
         icon: Icon(
           Icons.chevron_left,
           size: Adapt.px(30),
-          color: color,
         ),
       );
     } else {
