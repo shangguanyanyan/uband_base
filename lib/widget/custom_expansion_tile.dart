@@ -13,6 +13,9 @@ class CustomExpansionTile extends StatefulWidget {
       this.children = const <Widget>[],
       this.trailing,
       this.initiallyExpanded = false,
+      this.iconSize = 24,
+      this.iconColor = const Color(0xffcccccc),
+      this.alignment = Alignment.center,
       this.isBorder = true})
       : assert(initiallyExpanded != null),
         super(key: key);
@@ -29,6 +32,12 @@ class CustomExpansionTile extends StatefulWidget {
   final bool initiallyExpanded;
 
   final bool isBorder;
+
+  final double iconSize;
+
+  final Color iconColor;
+
+  final Alignment alignment;
 
   @override
   _ExpansionTileState createState() => _ExpansionTileState();
@@ -112,6 +121,7 @@ class _ExpansionTileState extends State<CustomExpansionTile>
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Stack(
               alignment: AlignmentDirectional.centerStart,
@@ -122,9 +132,10 @@ class _ExpansionTileState extends State<CustomExpansionTile>
                   child: widget.trailing ??
                       RotationTransition(
                         turns: _iconTurns,
-                        child: const Icon(
+                        child: Icon(
                           Icons.expand_more,
-                          color: Color(0xffcccccc),
+                          color: widget.iconColor,
+                          size: widget.iconSize,
                         ),
                       ),
                 )
@@ -132,6 +143,7 @@ class _ExpansionTileState extends State<CustomExpansionTile>
             ),
             ClipRect(
               child: Align(
+                alignment: widget.alignment,
                 heightFactor: _heightFactor.value,
                 child: child,
               ),
@@ -161,7 +173,11 @@ class _ExpansionTileState extends State<CustomExpansionTile>
     return AnimatedBuilder(
       animation: _controller.view,
       builder: _buildChildren,
-      child: closed ? null : Column(children: widget.children),
+      child: closed
+          ? null
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: widget.children),
     );
   }
 }

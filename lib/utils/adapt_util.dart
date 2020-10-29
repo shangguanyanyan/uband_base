@@ -11,29 +11,36 @@ class Adapt {
   /// 设计稿宽度
   static int _designWidth = 750;
 
+  static int _designHeight = 1334;
+
   static bool _ignoreTextScale = true;
 
   static MediaQueryData _mediaQueryData = MediaQueryData.fromWindow(window);
   static double _ratio;
 
+  static double _ratioHeight;
+
   /// 初始化方法
   /// 
   /// [designWidth] 设计稿宽度
-  static init({int designWidth, bool ignoreTextScale}){
+  static init({int designWidth,int designHeight,bool ignoreTextScale}){
     designWidth ??= _designWidth;
-    print("${_mediaQueryData.size}");
+    designHeight ??= _designHeight;
     _ratio = _mediaQueryData.size.width / designWidth;
+    _ratioHeight = _mediaQueryData.size.height / designHeight;
     _ignoreTextScale ??= ignoreTextScale;
   }
 
-  static initWithContext(BuildContext context, {int designWidth, bool ignoreTextScale}) {
+  static initWithContext(BuildContext context, {int designWidth,int designHeight, bool ignoreTextScale}) {
     designWidth ??= _designWidth;
+    designHeight ??= _designHeight;
     _mediaQueryData = MediaQuery.of(context);
     _ratio = _mediaQueryData.size.width / designWidth;
+    _ratioHeight = _mediaQueryData.size.height / designHeight;
     _ignoreTextScale ??= ignoreTextScale;
   }
 
-  static bool get _hasInit => _ratio != null;
+  static bool get _hasInit => _ratio != null && _ratioHeight != null;
 
   /// 1 `px` 转逻辑像素 `pt` 的值
   static double get onePx => 1 / _mediaQueryData.devicePixelRatio;
@@ -58,6 +65,13 @@ class Adapt {
       init();
     }
     return value * _ratio;
+  }
+
+  static double pxHeight(double value){
+    if (!_hasInit) {
+      init();
+    }
+    return value * _ratioHeight;
   }
 
   /// 字体 `px` 转逻辑 `pt`

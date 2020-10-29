@@ -112,6 +112,10 @@ class NetworkUtil {
     return options;
   }
 
+  static void addInterceptor(Interceptor interceptor){
+    instance.interceptors.add(interceptor);
+  }
+
   /// get请求
   static Future<Response<T>> get<T>(
     String url, {

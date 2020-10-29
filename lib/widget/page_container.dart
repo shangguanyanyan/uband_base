@@ -38,6 +38,9 @@ class PageContainer extends StatefulWidget {
   /// 页面退出路由栈时的监听回调
   final VoidCallback onPopNextCallback;
 
+  /// 底部导航栏
+  final Widget bottomNavigationBar;
+
   PageContainer(
       {Key key,
       Widget child,
@@ -45,6 +48,7 @@ class PageContainer extends StatefulWidget {
       List<Widget> actions,
       this.showAppBar = true,
       this.customAppBar,
+      this.bottomNavigationBar,
       this.resizeToAvoidBottomInset = true,
       this.backgroundColor = const Color(0xffffffff),
       this.leadingIcon,
@@ -112,7 +116,7 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
     current = Scaffold(
       appBar: _buildAppBar(),
       floatingActionButton: null,
-      bottomNavigationBar: null,
+      bottomNavigationBar: widget.bottomNavigationBar,
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       backgroundColor: widget.backgroundColor,
       body: current,
