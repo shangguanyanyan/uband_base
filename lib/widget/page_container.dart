@@ -89,7 +89,6 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
     if (widget.customAppBar != null) {
       return widget.customAppBar;
     }
-
     return AppBar(
       title: widget.title != null
           ? Quick.buildText(widget.title, fontSize: 17).bold().build()

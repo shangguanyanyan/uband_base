@@ -15,7 +15,6 @@ class BaseDialog {
     dialog.gravityAnimationEnable = true;
     dialog.backgroundColor = Colors.transparent;
     dialog.dismissCallBack = () {
-      log("onDismiss");
     };
     dialog.widget(widget);
     if (autoShow) {
@@ -35,6 +34,7 @@ class BaseDialog {
     YYDialog dialog = YYDialog().build();
     dialog.context = context;
     dialog.gravityAnimationEnable = true;
+    dialog.barrierDismissible = false;
     dialog.backgroundColor = Colors.transparent;
     dialog.widget(widget);
     if (autoShow) {
