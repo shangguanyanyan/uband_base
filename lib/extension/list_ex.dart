@@ -1,13 +1,7 @@
 import 'package:ubandbase/utils/functions.dart';
 
 /// list 的扩展
-extension ListX<T> on List<T> {
-  forEachIndex(void f(element, int index)) {
-    for (int i = 0; i < this.length; i++) {
-      f(this[i], i);
-    }
-  }
-
+extension ListEX<T> on List<T> {
   T get firstOrNull => getOrNull(0);
 
   T get lastOrNull => getOrNull(length - 1);
@@ -50,5 +44,11 @@ extension ListX<T> on List<T> {
       (map[key(element)] ??= []).add(element);
     }
     return map;
+  }
+
+  forEachIndex(void f(element, int index)) {
+    for (int i = 0; i < this.length; i++) {
+      f(this[i], i);
+    }
   }
 }
