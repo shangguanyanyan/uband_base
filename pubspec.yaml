@@ -24,6 +24,7 @@ dependencies:
   url_launcher:
   #国际化
   flutter_i18n:
+  fluttertoast:
 
 dev_dependencies:
   flutter_test:
