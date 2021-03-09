@@ -1,6 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:ubandbase/widget/flutter_custom_dialog/flutter_custom_dialog.dart';
 
 /// 封装了基本的弹框效果
 class BaseDialog {
@@ -30,11 +30,11 @@ class BaseDialog {
 
   /// 弹框从中间弹出效果
   static YYDialog showCenter(BuildContext context, Widget widget,
-      {bool autoShow = true, bool autoDismiss = false}) {
+      {bool autoShow = true, bool autoDismiss = false,barrierDismissible = false}) {
     YYDialog dialog = YYDialog().build();
     dialog.context = context;
     dialog.gravityAnimationEnable = true;
-    dialog.barrierDismissible = false;
+    dialog.barrierDismissible = barrierDismissible;
     dialog.backgroundColor = Colors.transparent;
     dialog.widget(widget);
     if (autoShow) {

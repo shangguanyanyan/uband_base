@@ -12,37 +12,39 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  # 对全局弹窗的功能封装 https://pub.flutter-io.cn/packages/flutter_custom_dialog
-  flutter_custom_dialog: ^1.0.20
+  # 状态管理框架
+  flutter_bloc: ^7.0.0-nullsafety.4
+  equatable: ^2.0.0
   # 提供 cookie 管理 https://pub.flutter-io.cn/packages/cookie_jar
-  cookie_jar: ^1.0.0
+  cookie_jar: ^2.0.0
   # 提供了基本 datatime 类型操作 https://pub.flutter-io.cn/packages/date_utils
-  date_utils:
+  #date_utils:
   # dio是一个强大的Dart Http请求库 https://pub.flutter-io.cn/packages/dio
-  dio: ^3.0.10
+  dio: ^4.0.0-beta6
   # 本地化和国际化信息 https://pub.flutter-io.cn/packages/intl
-  intl: ^0.16.1
+  # intl:
   # 操作路径 https://pub.flutter-io.cn/packages/path
-  path: ^1.7.0
+  path: ^1.8.0
   # 获取路径 https://pub.flutter-io.cn/packages/path_provider
-  path_provider: ^1.6.27
+  path_provider: ^2.0.1
   # event bus 事件库 https://pub.flutter-io.cn/packages/event_bus
-  event_bus: ^1.1.1
+  event_bus: ^2.0.0
   # 获取不同平台包信息 https://pub.flutter-io.cn/packages/package_info
-  package_info: ^0.4.3+4
+  package_info: ^2.0.0
   # 支持不同平台下打开 URL https://pub.flutter-io.cn/packages/url_launcher
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.2
   # 国际化 https://pub.flutter-io.cn/packages/flutter_i18n
-  flutter_i18n: ^0.21.0
+  flutter_i18n: ^0.22.3
   # toast https://pub.flutter-io.cn/packages/fluttertoast
-  fluttertoast: ^7.1.8
+  fluttertoast: ^8.0.1-nullsafety.0
   # 日志打印 https://pub.flutter-io.cn/packages/logger
-  logger: ^0.9.4
+  logger: ^1.0.0-nullsafety.0
   # 模态对话框增强 https://pub.flutter-io.cn/packages/modal_bottom_sheet
-  modal_bottom_sheet: ^1.0.0+1
+  modal_bottom_sheet: ^2.0.0
   # 可拆叠列表的 Flutter 实现，支持粘性头部，可以与 Sliver 家族控件配合使用 https://pub.flutter-io.cn/packages/sticky_and_expandable_list
-  sticky_and_expandable_list: ^0.2.3
-
+  #sticky_and_expandable_list: ^0.2.3
+  # 可用于 sliver 的粘性头部组件
+  #flutter_sticky_header: ^0.5.0
 
 dev_dependencies:
   flutter_test:
