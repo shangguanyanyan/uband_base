@@ -1,6 +1,31 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:ubandbase/export.dart' ;
+import 'package:ubandbase/export.dart';
 import 'package:ubandbase/utils/utils.dart';
+
+class PageOption {
+  final FloatingActionButton floatingActionButton;
+  final FloatingActionButtonLocation floatingActionButtonLocation;
+  final FloatingActionButtonAnimator floatingActionButtonAnimator;
+  final bool primary;
+  final DragStartBehavior drawerDragStartBehavior;
+  final bool extendBody;
+  final bool extendBodyBehindAppBar;
+  final bool drawerEnableOpenDragGesture;
+  final bool endDrawerEnableOpenDragGesture;
+
+
+  const PageOption(
+      {this.floatingActionButton,
+      this.floatingActionButtonLocation,
+      this.floatingActionButtonAnimator,
+      this.primary = true,
+      this.drawerDragStartBehavior = DragStartBehavior.start,
+      this.extendBody = false,
+      this.extendBodyBehindAppBar = false,
+      this.drawerEnableOpenDragGesture = true,
+      this.endDrawerEnableOpenDragGesture = true});
+}
 
 class PageContainer extends StatefulWidget {
   /// 标题
@@ -40,6 +65,8 @@ class PageContainer extends StatefulWidget {
   /// 底部导航栏
   final Widget bottomNavigationBar;
 
+  final PageOption pageOption;
+
   PageContainer(
       {Key key,
       Widget child,
@@ -54,7 +81,8 @@ class PageContainer extends StatefulWidget {
       this.clickBlankToBlur = false,
       this.routeObserver,
       this.onPushCallback,
-      this.onPopNextCallback})
+      this.onPopNextCallback,
+      this.pageOption = const PageOption()})
       : _child = child,
         _title = title,
         _actions = actions,
@@ -73,6 +101,8 @@ class PageContainer extends StatefulWidget {
 }
 
 class _PageContainerState extends State<PageContainer> with RouteAware {
+  PageOption get pageOption => widget.pageOption;
+
   /// 处理返回操作
   _handleBack() {
     Navigator.pop(context);
@@ -113,7 +143,15 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
 
     current = Scaffold(
       appBar: _buildAppBar(),
-      floatingActionButton: null,
+      floatingActionButton: pageOption.floatingActionButton,
+      floatingActionButtonLocation: pageOption.floatingActionButtonLocation,
+      floatingActionButtonAnimator: pageOption.floatingActionButtonAnimator,
+      primary: pageOption.primary,
+      drawerDragStartBehavior: pageOption.drawerDragStartBehavior,
+      extendBody: pageOption.extendBody,
+      extendBodyBehindAppBar: pageOption.extendBodyBehindAppBar,
+      drawerEnableOpenDragGesture: pageOption.drawerEnableOpenDragGesture,
+      endDrawerEnableOpenDragGesture: pageOption.endDrawerEnableOpenDragGesture,
       bottomNavigationBar: widget.bottomNavigationBar,
       resizeToAvoidBottomInset: widget.resizeToAvoidBottomInset,
       backgroundColor: widget.backgroundColor,
