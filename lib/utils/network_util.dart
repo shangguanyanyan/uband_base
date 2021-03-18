@@ -51,7 +51,7 @@ class NetworkUtil {
 
       /// 添加默认的拦截器
       _instance.interceptors
-          .add(InterceptorsWrapper(onRequest: (RequestOptions options) {
+          .add(InterceptorsWrapper(onRequest: (RequestOptions options,handler) {
         if (options.extra['withAuth'] as bool) {
           _addAuthString(options);
         }
