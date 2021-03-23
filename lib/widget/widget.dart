@@ -9,3 +9,5 @@ export 'flutter_custom_dialog/flutter_custom_dialog_widget.dart';
 export 'flutter_sticky_and_expandable_list/sticky_and_expandable_list.dart';
 export 'flutter_sticky_header/flutter_sticky_header.dart';
 export 'value_layout_builder/value_layout_builder.dart';
+export 'flutter_drage_scale/flutter_drag_scale.dart';
+export 'picture_detail.dart';
