@@ -21,10 +21,9 @@ class SliverExpandableList extends SliverList {
   final SliverExpandableChildDelegate builder;
 
   SliverExpandableList({
-    Key key,
-    @required this.builder,
-  })  : assert(builder != null),
-        super(key: key, delegate: builder.delegate);
+    Key? key,
+    required this.builder,
+  }) : super(key: key, delegate: builder.delegate);
 }
 
 /// A delegate that supplies children for [SliverExpandableList] using
@@ -34,14 +33,14 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
   final List sectionList;
 
   ///build section header
-  final ExpandableHeaderBuilder headerBuilder;
+  final ExpandableHeaderBuilder? headerBuilder;
 
   ///build section item
   final ExpandableItemBuilder itemBuilder;
 
   ///build header and item separator, if pass null, SliverList has no separators.
   ///default null.
-  final ExpandableSeparatorBuilder separatorBuilder;
+  final ExpandableSeparatorBuilder? separatorBuilder;
 
   ///whether to sticky the header.
   final bool sticky;
@@ -51,20 +50,20 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
 
   ///use this return a custom content widget, when use this builder, headerBuilder
   ///is invalid.
-  ExpandableSectionBuilder sectionBuilder;
+  ExpandableSectionBuilder? sectionBuilder;
 
   ///expandable list controller, listen sticky header index scroll offset etc.
-  ExpandableListController controller;
+  ExpandableListController? controller;
 
   ///sliver list builder
-  SliverChildBuilderDelegate delegate;
+  late SliverChildBuilderDelegate delegate;
 
   ///if value is true, when section is collapsed, all child widget in section widget will be removed.
   bool removeItemsOnCollapsed = true;
 
   SliverExpandableChildDelegate(
-      {@required this.sectionList,
-      @required this.itemBuilder,
+      {required this.sectionList,
+      required this.itemBuilder,
       this.controller,
       this.separatorBuilder,
       this.headerBuilder,
@@ -74,7 +73,7 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
       bool addAutomaticKeepAlives = true,
       bool addRepaintBoundaries = true,
       bool addSemanticIndexes = true})
-      : assert(sectionList != null),
+      :
         //only use one builder
         assert(headerBuilder == null || sectionBuilder == null),
         sectionRealIndexes = _buildSectionRealIndexes(sectionList) {
@@ -90,8 +89,7 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
           int itemRealIndex = sectionRealIndex;
 
           bool hasChildren =
-              ((removeItemsOnCollapsed && !section.isSectionExpanded()) ||
-                  section.getItems() == null);
+              ((removeItemsOnCollapsed && !section.isSectionExpanded()));
           //user List.generate() instead of list generator for compatible with Dart versions below 2.3.0.
           var children = hasChildren
               ? <Widget>[]
@@ -112,12 +110,13 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
             ),
             children: children,
           );
-          Widget container = sectionBuilder != null
-              ? sectionBuilder(context, containerInfo)
+          Widget? container = sectionBuilder != null
+              ? sectionBuilder!(context, containerInfo)
               : null;
           if (container == null) {
             containerInfo
-              ..header = headerBuilder(context, sectionIndex, sectionRealIndex);
+              ..header =
+                  headerBuilder!(context, sectionIndex, sectionRealIndex);
             container = ExpandableSectionContainer(
               info: containerInfo,
             );
@@ -138,12 +137,11 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
           int sectionRealIndex = sectionRealIndexes[sectionIndex];
           if (index.isEven) {
             int sectionChildCount =
-                _computeSemanticChildCount(section.getItems()?.length ?? 0);
+                _computeSemanticChildCount(section.getItems().length);
             int itemRealIndex = sectionRealIndex;
 
             bool hasChildren =
-                ((removeItemsOnCollapsed && !section.isSectionExpanded()) ||
-                    section.getItems() == null);
+                ((removeItemsOnCollapsed && !section.isSectionExpanded()));
             //user List.generate() instead of list generator for compatible with Dart versions below 2.3.0.
             var children = hasChildren
                 ? <Widget>[]
@@ -152,7 +150,7 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
                     (i) => i.isEven
                         ? itemBuilder(
                             context, sectionIndex, i ~/ 2, ++itemRealIndex)
-                        : separatorBuilder(context, false, itemRealIndex - 1));
+                        : separatorBuilder!(context, false, itemRealIndex - 1));
 
             var containerInfo = ExpandableSectionContainerInfo(
               separated: true,
@@ -167,21 +165,21 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
                 children: children,
               ),
             );
-            Widget container = sectionBuilder != null
-                ? sectionBuilder(context, containerInfo)
+            Widget? container = sectionBuilder != null
+                ? sectionBuilder!(context, containerInfo)
                 : null;
             if (container == null) {
               containerInfo
                 ..header =
-                    headerBuilder(context, sectionIndex, sectionRealIndex);
+                    headerBuilder!(context, sectionIndex, sectionRealIndex);
               container = ExpandableSectionContainer(
                 info: containerInfo,
               );
             }
             return container;
           } else {
-            itemView = separatorBuilder(context, true,
-                sectionIndex + (section.getItems()?.length ?? 0));
+            itemView = separatorBuilder!(
+                context, true, sectionIndex + (section.getItems().length));
           }
           return itemView;
         },
@@ -203,8 +201,8 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
   static List<int>
       _buildSectionRealIndexes<T, S extends ExpandableListSection<T>>(
           List sectionList) {
-    int calcLength = sectionList?.length ?? 0 - 1;
-    List<int> sectionRealIndexes = List<int>();
+    int calcLength = sectionList.length;
+    List<int> sectionRealIndexes = List<int>.empty();
     if (calcLength < 0) {
       return sectionRealIndexes;
     }
@@ -213,8 +211,7 @@ class SliverExpandableChildDelegate<T, S extends ExpandableListSection<T>> {
     for (int i = 0; i < calcLength; i++) {
       S section = sectionList[i];
       //each section model should not null.
-      assert(section != null);
-      realIndex += 1 + (section.getItems()?.length ?? 0);
+      realIndex += 1 + section.getItems().length;
       sectionRealIndexes.add(realIndex);
     }
     return sectionRealIndexes;
@@ -236,23 +233,23 @@ class ExpandableListController extends ChangeNotifier {
   ///switchingSection scroll percent, [0.1-1.0], 1.0 mean that the last sticky section
   ///is completely hidden.
   double _percent = 1.0;
-  int _switchingSectionIndex = -1;
-  int _stickySectionIndex = -1;
+  int? _switchingSectionIndex = -1;
+  int? _stickySectionIndex = -1;
 
   ExpandableListController();
 
   ///store [ExpandableSectionContainer] information. [SliverList index, layoutOffset].
   ///don't modify it.
-  List<double> containerOffsets = List<double>();
+  List<double?> containerOffsets = List<double?>.empty();
 
   double get percent => _percent;
 
-  int get switchingSectionIndex => _switchingSectionIndex;
+  int? get switchingSectionIndex => _switchingSectionIndex;
 
   ///get pinned header index
-  int get stickySectionIndex => _stickySectionIndex;
+  int? get stickySectionIndex => _stickySectionIndex;
 
-  updatePercent(int sectionIndex, double percent) {
+  updatePercent(int? sectionIndex, double percent) {
     if (_percent == percent && _switchingSectionIndex == sectionIndex) {
       return;
     }
@@ -261,7 +258,7 @@ class ExpandableListController extends ChangeNotifier {
     notifyListeners();
   }
 
-  set stickySectionIndex(int value) {
+  set stickySectionIndex(int? value) {
     if (_stickySectionIndex == value) {
       return;
     }
@@ -293,7 +290,7 @@ class ExpandableDefaultAutoLayoutTrigger
   final ExpandableListController _controller;
 
   double _percent = 0;
-  int _stickyIndex = 0;
+  int? _stickyIndex = 0;
 
   ExpandableDefaultAutoLayoutTrigger(this._controller) : super();
 
@@ -316,10 +313,10 @@ class ExpandableDefaultAutoLayoutTrigger
 ///when [trigger] condition matched.
 class ExpandableAutoLayoutWidget extends StatefulWidget {
   ///listen sticky header hide percent, [0.0-0.1].
-  final ExpandableAutoLayoutTrigger trigger;
+  final ExpandableAutoLayoutTrigger? trigger;
 
   ///build section header
-  final WidgetBuilder builder;
+  final WidgetBuilder? builder;
 
   ExpandableAutoLayoutWidget({this.builder, this.trigger});
 
@@ -333,14 +330,14 @@ class _ExpandableAutoLayoutWidgetState
   @override
   void initState() {
     super.initState();
-    if (widget.trigger != null && widget.trigger.controller != null) {
-      widget.trigger.controller.addListener(_onChange);
+    if (widget.trigger != null) {
+      widget.trigger!.controller.addListener(_onChange);
     }
   }
 
   void _onChange() {
-    if (widget.trigger.needBuild()) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (widget.trigger!.needBuild()) {
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
         if (mounted) {
           setState(() {});
         }
@@ -350,8 +347,8 @@ class _ExpandableAutoLayoutWidgetState
 
   @override
   void dispose() {
-    if (widget.trigger != null && widget.trigger.controller != null) {
-      widget.trigger.controller.removeListener(_onChange);
+    if (widget.trigger != null) {
+      widget.trigger!.controller.removeListener(_onChange);
     }
     super.dispose();
   }
@@ -359,7 +356,7 @@ class _ExpandableAutoLayoutWidgetState
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: widget.builder(context),
+      child: widget.builder!(context),
     );
   }
 }

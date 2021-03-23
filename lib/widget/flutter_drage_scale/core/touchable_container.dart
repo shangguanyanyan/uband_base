@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import './custom_gesture_detector.dart' as gd;
 
 class ScaleChangedModel {
-  double scale;
-  Offset offset;
+  double? scale;
+  Offset? offset;
   ScaleChangedModel({this.scale, this.offset});
 
   @override
@@ -13,17 +13,17 @@ class ScaleChangedModel {
 }
 
 class TouchableContainer extends StatefulWidget {
-  final Widget child;
-  final bool doubleTapStillScale;
+  final Widget? child;
+  final bool? doubleTapStillScale;
 
   ///用来约束图和坐标轴的
   ///因为坐标轴和图是堆叠起来的，图在坐标轴的内部，需要制定margin，否则放大后图会超出坐标轴
   final EdgeInsets margin;
-  ValueChanged<ScaleChangedModel> scaleChanged;
+  final ValueChanged<ScaleChangedModel>? scaleChanged;
 
   TouchableContainer(
       {this.child,
-      EdgeInsets margin,
+      EdgeInsets? margin,
       this.scaleChanged,
       this.doubleTapStillScale})
       : this.margin = margin ?? EdgeInsets.all(0);
@@ -33,13 +33,13 @@ class TouchableContainer extends StatefulWidget {
 class _TouchableContainerState extends State<TouchableContainer>
     with SingleTickerProviderStateMixin {
   double _kMinFlingVelocity = 800.0;
-  AnimationController _controller;
-  Animation<Offset> _flingAnimation;
+  AnimationController? _controller;
+  late Animation<Offset> _flingAnimation;
   Offset _offset = Offset.zero;
   double _scale = 1.0;
-  Offset _normalizedOffset;
-  double _previousScale;
-  Offset doubleDownPositon;
+  late Offset _normalizedOffset;
+  late double _previousScale;
+  Offset? doubleDownPositon;
   @override
   void initState() {
     super.initState();
@@ -49,7 +49,7 @@ class _TouchableContainerState extends State<TouchableContainer>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller!.dispose();
     super.dispose();
   }
 
@@ -57,7 +57,7 @@ class _TouchableContainerState extends State<TouchableContainer>
   // then the minimum offset value is w - _scale * w, h - _scale * h.
   //也就是最小值是原点0，0，点从最大值到0的区间，也就是这个图可以从最大值移动到原点
   Offset _clampOffset(Offset offset) {
-    final Size size = context.size; //容器的大小
+    final Size size = context.size!; //容器的大小
     final Offset minOffset =
         new Offset(size.width, size.height) * (1.0 - _scale);
     return new Offset(
@@ -75,7 +75,7 @@ class _TouchableContainerState extends State<TouchableContainer>
       _previousScale = _scale;
       _normalizedOffset = (details.focalPoint - _offset) / _scale;
       // The fling animation stops if an input gesture starts.
-      _controller.stop();
+      _controller!.stop();
     });
   }
 
@@ -85,29 +85,29 @@ class _TouchableContainerState extends State<TouchableContainer>
         _scale = (_previousScale * details.scale).clamp(1.0, double.infinity);
       }
       // Ensure that image location under the focal point stays in the same place despite scaling.
-      _offset = _clampOffset(details.focalPoint - _normalizedOffset * _scale);
+      _offset = _clampOffset(details.focalPoint! - _normalizedOffset * _scale);
     });
     ScaleChangedModel model =
         new ScaleChangedModel(scale: _scale, offset: _offset);
-    if (widget.scaleChanged != null) widget.scaleChanged(model);
+    if (widget.scaleChanged != null) widget.scaleChanged!(model);
   }
 
   void _handleOnScaleEnd(gd.ScaleEndDetails details) {
     final double magnitude = details.velocity.pixelsPerSecond.distance;
     if (magnitude < _kMinFlingVelocity) return;
     final Offset direction = details.velocity.pixelsPerSecond / magnitude;
-    final double distance = (Offset.zero & context.size).shortestSide;
+    final double distance = (Offset.zero & context.size!).shortestSide;
     _flingAnimation = new Tween<Offset>(
             begin: _offset, end: _clampOffset(_offset + direction * distance))
-        .animate(_controller);
-    _controller
+        .animate(_controller!);
+    _controller!
       ..value = 0.0
       ..fling(velocity: magnitude / 1000.0);
   }
 
   void _onDoubleTap(gd.DoubleDetails details) {
-    _normalizedOffset = (details.pointerEvent.position - _offset) / _scale;
-    if (!widget.doubleTapStillScale && _scale != 1.0) {
+    _normalizedOffset = (details.pointerEvent!.position - _offset) / _scale;
+    if (!widget.doubleTapStillScale! && _scale != 1.0) {
       setState(() {
         _scale = 1.0;
         _offset = Offset.zero;
@@ -115,7 +115,7 @@ class _TouchableContainerState extends State<TouchableContainer>
       return;
     }
     setState(() {
-      if (widget.doubleTapStillScale) {
+      if (widget.doubleTapStillScale!) {
         _scale *= (1 + 0.2);
       } else {
         _scale *= (2);
@@ -123,12 +123,12 @@ class _TouchableContainerState extends State<TouchableContainer>
       // Ensure that image location under the focal point stays in the same place despite scaling.
       // _offset = doubleDownPositon;
       _offset = _clampOffset(
-          details.pointerEvent.position - _normalizedOffset * _scale);
+          details.pointerEvent!.position - _normalizedOffset * _scale);
     });
 
     ScaleChangedModel model =
         new ScaleChangedModel(scale: _scale, offset: _offset);
-    if (widget.scaleChanged != null) widget.scaleChanged(model);
+    if (widget.scaleChanged != null) widget.scaleChanged!(model);
   }
 
   @override

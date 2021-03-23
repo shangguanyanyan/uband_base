@@ -9,7 +9,7 @@ extension BuildContextEX on BuildContext {
     String content, {
     Duration duration = const Duration(seconds: 1),
   }) {
-    Scaffold.of(this).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
       content: Text(content),
       duration: duration,
       action: SnackBarAction(label: '知道了', onPressed: () {}),
@@ -20,7 +20,7 @@ extension BuildContextEX on BuildContext {
     FocusScope.of(this).unfocus();
   }
 
-  FormState get form {
+  FormState? get form {
     return Form.of(this);
   }
 
@@ -56,7 +56,7 @@ extension BuildContextEX on BuildContext {
     return Navigator.of(this);
   }
 
-  TabController get tabController {
+  TabController? get tabController {
     return DefaultTabController.of(this);
   }
 }

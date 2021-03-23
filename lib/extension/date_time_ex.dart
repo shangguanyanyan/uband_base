@@ -11,7 +11,7 @@ extension DateTimeEX on DateTime {
     return DateFormat.yMd().format(this);
   }
 
-  String Md() {
+  String md() {
     return DateFormat.Md().format(this);
   }
 

@@ -12,7 +12,7 @@ class FluroConvertUtils {
 
   /// fluro 传递后取出参数，解析
   static String fluroCnParamsDecode(String encodeCn) {
-    var list = List<int>();
+    var list = List<int>.empty();
 
     ///字符串解码
     jsonDecode(encodeCn).forEach(list.add);
@@ -53,7 +53,7 @@ class FluroConvertUtils {
   }
 
   /// string json 转为 map
-  static Map<String, dynamic> string2map(String str) {
+  static Map<String, dynamic>? string2map(String str) {
     return json.decode(fluroCnParamsDecode(str));
   }
 

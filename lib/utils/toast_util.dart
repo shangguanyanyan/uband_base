@@ -8,11 +8,11 @@ import 'package:ubandbase/utils/adapt_util.dart';
 import 'package:ubandbase/utils/quick_util.dart';
 
 class ToastUtil {
-  static FToast _fToast;
+  static FToast? _fToast;
 
   static init(BuildContext context) {
     if (_fToast == null) _fToast = FToast();
-    _fToast.init(context);
+    _fToast!.init(context);
   }
 
   static Widget _imgLeadToast(Widget leading, String message) {
@@ -83,8 +83,8 @@ class ToastUtil {
         fontSize: Adapt.px(22));
   }
 
-  static showToast(Widget child,{double left,int duration = 2}) {
-    _fToast.showToast(
+  static showToast(Widget child,{double? left,int duration = 2}) {
+    _fToast!.showToast(
         child: child,
         toastDuration: Duration(seconds: duration),
         positionedToastBuilder: (context, child) {

@@ -1,7 +1,4 @@
 bool isEmpty(Object object) {
-  if (object == null) {
-    return true;
-  }
 
   if (object is String) {
     return object.isEmpty;

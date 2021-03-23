@@ -7,11 +7,11 @@ enum ImgType { FILE, ASSET, URL }
 
 // ignore: must_be_immutable
 class CenterPictureDetail extends StatelessWidget {
-  String picAsset;
-  File filePath;
-  String url;
+  late String picAsset;
+  late File filePath;
+  late String url;
 
-  ImgType _type;
+  ImgType? _type;
 
   CenterPictureDetail.path(File filePath) {
     this.filePath = filePath;
@@ -43,7 +43,7 @@ class CenterPictureDetail extends StatelessWidget {
         ));
   }
 
-  Widget _getImg(ImgType type) {
+  Widget _getImg(ImgType? type) {
     switch (type) {
       case ImgType.FILE:
         return Image.file(filePath);

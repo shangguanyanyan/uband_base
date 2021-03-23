@@ -1,39 +1,38 @@
 import 'dart:io';
 
-import 'package:meta/meta.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/adapter.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 
 class NetworkUtil {
   /// Dio 实例
-  static Dio _instance;
+  static Dio? _instance;
 
-  static bool _debug;
+  static late bool _debug;
 
-  static String _baseUrl;
+  static late String _baseUrl;
 
-  static String _userAgent;
+  static String? _userAgent;
 
-  static int _timeout;
+  static int? _timeout;
 
-  static bool _followRedirects;
+  static bool? _followRedirects;
 
-  static ResponseType _responseType;
+  static ResponseType? _responseType;
 
-  static bool _receiveDataWhenStatusError;
+  static bool? _receiveDataWhenStatusError;
 
-  static CookieJar _cookieJar;
+  static late CookieJar _cookieJar;
 
-  static String _authStringName;
+  static String? _authStringName;
 
   // 保存 cookie 的操作是异步的，
   // 保证在 setCookie 后能拿到正确的 认证信息
-  static String _authString;
+  static String? _authString;
 
   NetworkUtil._();
 
-  static Dio get instance {
+  static Dio? get instance {
     if (_instance == null) {
       _instance = Dio(BaseOptions(
         connectTimeout: _timeout,
@@ -50,7 +49,7 @@ class NetworkUtil {
       ));
 
       /// 添加默认的拦截器
-      _instance.interceptors
+      _instance!.interceptors
           .add(InterceptorsWrapper(onRequest: (RequestOptions options,handler) {
         if (options.extra['withAuth'] as bool) {
           _addAuthString(options);
@@ -58,10 +57,10 @@ class NetworkUtil {
       }));
       if (_debug) {
         /// 调试模式下打印网络调试信息
-        _instance.interceptors.add(LogInterceptor());
+        _instance!.interceptors.add(LogInterceptor());
 
         /// 调试模式下忽略证书校验
-        (_instance.httpClientAdapter as DefaultHttpClientAdapter)
+        (_instance!.httpClientAdapter as DefaultHttpClientAdapter)
             .onHttpClientCreate = (client) {
           client.badCertificateCallback =
               (X509Certificate cert, String host, int port) {
@@ -75,15 +74,15 @@ class NetworkUtil {
 
   /// 初始化调用
   static init({
-    @required String baseUrl,
-    CookieJar cookieJar,
-    int timeout,
-    String userAgent,
-    bool followRedirects,
-    bool receiveDataWhenStatusError,
-    ResponseType responseType,
-    String authStringName,
-    bool debug,
+    required String baseUrl,
+    CookieJar? cookieJar,
+    int? timeout,
+    String? userAgent,
+    bool? followRedirects,
+    bool? receiveDataWhenStatusError,
+    ResponseType? responseType,
+    String? authStringName,
+    bool? debug,
   }) {
     _baseUrl = baseUrl;
     _timeout = timeout ?? 5000;
@@ -98,7 +97,7 @@ class NetworkUtil {
 
   /// 添加认证信息
   static _addAuthString(RequestOptions options) {
-    String authString = _authString;
+    String? authString = _authString;
     if (authString == null) {
       List<Cookie> cookieList = _cookieJar.loadForRequest(Uri.parse(_baseUrl));
       for (Cookie cookie in cookieList) {
@@ -108,22 +107,22 @@ class NetworkUtil {
         }
       }
     }
-    options.headers[_authStringName] = authString;
+    options.headers[_authStringName!] = authString;
     return options;
   }
 
   static void addInterceptor(Interceptor interceptor) {
-    instance.interceptors.add(interceptor);
+    instance!.interceptors.add(interceptor);
   }
 
   /// get请求
   static Future<Response<T>> get<T>(
     String url, {
     bool withAuth = true,
-    Map<String, dynamic> params,
-    Map<String, dynamic> headers,
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? headers,
   }) async {
-    return instance.get<T>(
+    return instance!.get<T>(
       url,
       queryParameters: params,
       options: Options(
@@ -137,11 +136,11 @@ class NetworkUtil {
   static Future<Response<T>> post<T>(
     String url, {
     bool withAuth = true,
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    Map<String, dynamic> headers,
+    Map<String, dynamic>? headers,
   }) async {
-    return instance.post<T>(
+    return instance!.post<T>(
       url,
       queryParameters: params,
       data: data,
@@ -156,11 +155,11 @@ class NetworkUtil {
   static Future<Response<T>> put<T>(
     String url, {
     bool withAuth = true,
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    Map<String, dynamic> headers,
+    Map<String, dynamic>? headers,
   }) {
-    return instance.put<T>(
+    return instance!.put<T>(
       url,
       queryParameters: params,
       data: data,
@@ -175,11 +174,11 @@ class NetworkUtil {
   static Future<Response<T>> delete<T>(
     String url, {
     bool withAuth = true,
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
-    Map<String, dynamic> headers,
+    Map<String, dynamic>? headers,
   }) {
-    return instance.delete<T>(
+    return instance!.delete<T>(
       url,
       queryParameters: params,
       data: data,
@@ -195,10 +194,10 @@ class NetworkUtil {
     String url,
     String to, {
     bool withAuth = true,
-    Map<String, dynamic> params,
+    Map<String, dynamic>? params,
     dynamic data,
   }) {
-    return instance.download(
+    return instance!.download(
       url,
       to,
       queryParameters: params,
@@ -208,7 +207,7 @@ class NetworkUtil {
   }
 
   /// 上传文件，待实现
-  static Future<Response> upload<T>() async {
+  static Future<Response?> upload<T>() async {
     return null;
   }
 
@@ -217,7 +216,7 @@ class NetworkUtil {
     Uri uri = Uri.parse(_baseUrl);
     _authString = token;
     _cookieJar.saveFromResponse(uri,
-        _cookieJar.loadForRequest(uri)..add(Cookie(_authStringName, token)));
+        _cookieJar.loadForRequest(uri)..add(Cookie(_authStringName!, token)));
   }
 
   static bool hasToken() {
@@ -236,6 +235,6 @@ class NetworkUtil {
     Uri uri = Uri.parse(_baseUrl);
     _authString = null;
     _cookieJar.saveFromResponse(
-        uri, _cookieJar.loadForRequest(uri)..add(Cookie(_authStringName, "")));
+        uri, _cookieJar.loadForRequest(uri)..add(Cookie(_authStringName!, "")));
   }
 }
