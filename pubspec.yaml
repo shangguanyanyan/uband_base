@@ -13,7 +13,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   # 提供 json 解析注解
-  json_annotation: ^3.0.0
+  json_annotation: ^4.0.1
   # 状态管理框架
   flutter_bloc: ^7.0.0-nullsafety.6
   equatable: ^2.0.0
@@ -54,8 +54,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-dependency_overrides:
-   http_parser: ^4.0.0
+#dependency_overrides:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
