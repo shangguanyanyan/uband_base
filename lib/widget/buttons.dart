@@ -10,7 +10,7 @@ class ContainedButton extends StatelessWidget {
   final VoidCallback onPress;
 
   ContainedButton(
-      {@required this.text, @required this.background, @required this.onPress});
+      {required this.text, required this.background, required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +34,10 @@ class ImageIconButtonWrapper extends StatelessWidget with BottomDecorator {
   final String resource;
   final VoidCallback onPress;
   final double iconSize;
-  final Color color;
+  final Color? color;
 
   ImageIconButtonWrapper(this.resource,
-      {@required this.onPress, Key key, this.iconSize = 24, this.color})
+      {required this.onPress, Key? key, this.iconSize = 24, this.color})
       : super(key: key);
 
   @override
@@ -56,15 +56,15 @@ class ImageIconButtonWrapper extends StatelessWidget with BottomDecorator {
 
 /// 封装flatButton
 class FlatButtonWrapper extends StatelessWidget with BottomDecorator {
-  final Key key;
+  final Key? key;
   final Widget child;
   final VoidCallback onPressed;
-  final VoidCallback onLongPressed;
+  final VoidCallback? onLongPressed;
 
   FlatButtonWrapper(
       {this.key,
-      @required this.child,
-      @required this.onPressed,
+      required this.child,
+      required this.onPressed,
       this.onLongPressed})
       : super(key: key);
 

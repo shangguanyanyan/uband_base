@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -15,9 +17,9 @@ extension WidgetEX on Widget {
   }
 
   Future<Uint8List> capture({
-    Duration wait,
-    Size logicalSize,
-    Size imageSize,
+    Duration? wait,
+    Size? logicalSize,
+    Size? imageSize,
   }) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
 
@@ -27,7 +29,7 @@ extension WidgetEX on Widget {
     assert(logicalSize.aspectRatio == imageSize.aspectRatio);
 
     final RenderView renderView = RenderView(
-      window: null,
+      window: window,
       child: RenderPositionedBox(
         alignment: Alignment.center,
         child: repaintBoundary,
@@ -68,7 +70,7 @@ extension WidgetEX on Widget {
     final ui.Image image = await repaintBoundary.toImage(
       pixelRatio: imageSize.width / logicalSize.width,
     );
-    final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    final byteData = await (image.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
 
     return byteData.buffer.asUint8List();
   }

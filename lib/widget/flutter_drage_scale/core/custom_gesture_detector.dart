@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart'
     show
@@ -97,7 +99,7 @@ export './double_details.dart' show DoubleDetails;
 ///
 /// Used by [RawGestureDetector.gestures].
 @optionalTypeArgs
-abstract class GestureRecognizerFactory<T extends GestureRecognizer> {
+abstract class GestureRecognizerFactory<T extends GestureRecognizer?> {
   /// Abstract const constructor. This constructor enables subclasses to provide
   /// const constructors so that they can be used in const expressions.
   const GestureRecognizerFactory();
@@ -205,7 +207,7 @@ class GestureDetector extends StatelessWidget {
   /// By default, gesture detectors contribute semantic information to the tree
   /// that is used by assistive technology.
   GestureDetector(
-      {Key key,
+      {Key? key,
       this.child,
       this.onTapDown,
       this.onTapUp,
@@ -270,7 +272,7 @@ class GestureDetector extends StatelessWidget {
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.child}
-  final Widget child;
+  final Widget? child;
 
   /// A pointer that might cause a tap has contacted the screen at a particular
   /// location.
@@ -278,14 +280,14 @@ class GestureDetector extends StatelessWidget {
   /// This is called after a short timeout, even if the winning gesture has not
   /// yet been selected. If the tap gesture wins, [onTapUp] will be called,
   /// otherwise [onTapCancel] will be called.
-  final GestureTapDownCallback onTapDown;
+  final GestureTapDownCallback? onTapDown;
 
   /// A pointer that will trigger a tap has stopped contacting the screen at a
   /// particular location.
   ///
   /// This triggers immediately before [onTap] in the case of the tap gesture
   /// winning. If the tap gesture did not win, [onTapCancel] is called instead.
-  final GestureTapUpCallback onTapUp;
+  final GestureTapUpCallback? onTapUp;
 
   /// A tap has occurred.
   ///
@@ -296,91 +298,91 @@ class GestureDetector extends StatelessWidget {
   ///
   ///  * [onTapUp], which is called at the same time but includes details
   ///    regarding the pointer position.
-  final GestureTapCallback onTap;
+  final GestureTapCallback? onTap;
 
   /// The pointer that previously triggered [onTapDown] will not end up causing
   /// a tap.
   ///
   /// This is called after [onTapDown], and instead of [onTapUp] and [onTap], if
   /// the tap gesture did not win.
-  final GestureTapCancelCallback onTapCancel;
+  final GestureTapCancelCallback? onTapCancel;
 
   /// The user has tapped the screen at the same location twice in quick
   /// succession.
-  final GestureDoubleTapCallback onDoubleTap;
+  final GestureDoubleTapCallback? onDoubleTap;
 
   /// A pointer has remained in contact with the screen at the same location for
   /// a long period of time.
-  final GestureLongPressCallback onLongPress;
+  final GestureLongPressCallback? onLongPress;
 
   /// A pointer that has triggered a long-press has stopped contacting the screen.
-  final GestureLongPressUpCallback onLongPressUp;
+  final GestureLongPressUpCallback? onLongPressUp;
 
   /// A pointer has contacted the screen and might begin to move vertically.
-  final GestureDragDownCallback onVerticalDragDown;
+  final GestureDragDownCallback? onVerticalDragDown;
 
   /// A pointer has contacted the screen and has begun to move vertically.
-  final GestureDragStartCallback onVerticalDragStart;
+  final GestureDragStartCallback? onVerticalDragStart;
 
   /// A pointer that is in contact with the screen and moving vertically has
   /// moved in the vertical direction.
-  final GestureDragUpdateCallback onVerticalDragUpdate;
+  final GestureDragUpdateCallback? onVerticalDragUpdate;
 
   /// A pointer that was previously in contact with the screen and moving
   /// vertically is no longer in contact with the screen and was moving at a
   /// specific velocity when it stopped contacting the screen.
-  final GestureDragEndCallback onVerticalDragEnd;
+  final GestureDragEndCallback? onVerticalDragEnd;
 
   /// The pointer that previously triggered [onVerticalDragDown] did not
   /// complete.
-  final GestureDragCancelCallback onVerticalDragCancel;
+  final GestureDragCancelCallback? onVerticalDragCancel;
 
   /// A pointer has contacted the screen and might begin to move horizontally.
-  final GestureDragDownCallback onHorizontalDragDown;
+  final GestureDragDownCallback? onHorizontalDragDown;
 
   /// A pointer has contacted the screen and has begun to move horizontally.
-  final GestureDragStartCallback onHorizontalDragStart;
+  final GestureDragStartCallback? onHorizontalDragStart;
 
   /// A pointer that is in contact with the screen and moving horizontally has
   /// moved in the horizontal direction.
-  final GestureDragUpdateCallback onHorizontalDragUpdate;
+  final GestureDragUpdateCallback? onHorizontalDragUpdate;
 
   /// A pointer that was previously in contact with the screen and moving
   /// horizontally is no longer in contact with the screen and was moving at a
   /// specific velocity when it stopped contacting the screen.
-  final GestureDragEndCallback onHorizontalDragEnd;
+  final GestureDragEndCallback? onHorizontalDragEnd;
 
   /// The pointer that previously triggered [onHorizontalDragDown] did not
   /// complete.
-  final GestureDragCancelCallback onHorizontalDragCancel;
+  final GestureDragCancelCallback? onHorizontalDragCancel;
 
   /// A pointer has contacted the screen and might begin to move.
-  final GestureDragDownCallback onPanDown;
+  final GestureDragDownCallback? onPanDown;
 
   /// A pointer has contacted the screen and has begun to move.
-  final GestureDragStartCallback onPanStart;
+  final GestureDragStartCallback? onPanStart;
 
   /// A pointer that is in contact with the screen and moving has moved again.
-  final GestureDragUpdateCallback onPanUpdate;
+  final GestureDragUpdateCallback? onPanUpdate;
 
   /// A pointer that was previously in contact with the screen and moving
   /// is no longer in contact with the screen and was moving at a specific
   /// velocity when it stopped contacting the screen.
-  final GestureDragEndCallback onPanEnd;
+  final GestureDragEndCallback? onPanEnd;
 
   /// The pointer that previously triggered [onPanDown] did not complete.
-  final GestureDragCancelCallback onPanCancel;
+  final GestureDragCancelCallback? onPanCancel;
 
   /// The pointers in contact with the screen have established a focal point and
   /// initial scale of 1.0.
-  final GestureScaleStartCallback onScaleStart;
+  final GestureScaleStartCallback? onScaleStart;
 
   /// The pointers in contact with the screen have indicated a new focal point
   /// and/or scale.
-  final GestureScaleUpdateCallback onScaleUpdate;
+  final GestureScaleUpdateCallback? onScaleUpdate;
 
   /// The pointers are no longer in contact with the screen.
-  final GestureScaleEndCallback onScaleEnd;
+  final GestureScaleEndCallback? onScaleEnd;
 
   /// The pointer is in contact with the screen and has pressed with sufficient
   /// force to initiate a force press. The amount of force is at least
@@ -388,7 +390,7 @@ class GestureDetector extends StatelessWidget {
   ///
   /// Note that this callback will only be fired on devices with pressure
   /// detecting screens.
-  final GestureForcePressStartCallback onForcePressStart;
+  final GestureForcePressStartCallback? onForcePressStart;
 
   /// The pointer is in contact with the screen and has pressed with the maximum
   /// force. The amount of force is at least
@@ -396,7 +398,7 @@ class GestureDetector extends StatelessWidget {
   ///
   /// Note that this callback will only be fired on devices with pressure
   /// detecting screens.
-  final GestureForcePressPeakCallback onForcePressPeak;
+  final GestureForcePressPeakCallback? onForcePressPeak;
 
   /// A pointer is in contact with the screen, has previously passed the
   /// [ForcePressGestureRecognizer.startPressure] and is either moving on the
@@ -405,19 +407,19 @@ class GestureDetector extends StatelessWidget {
   ///
   /// Note that this callback will only be fired on devices with pressure
   /// detecting screens.
-  final GestureForcePressUpdateCallback onForcePressUpdate;
+  final GestureForcePressUpdateCallback? onForcePressUpdate;
 
   /// The pointer is no longer in contact with the screen.
   ///
   /// Note that this callback will only be fired on devices with pressure
   /// detecting screens.
-  final GestureForcePressEndCallback onForcePressEnd;
+  final GestureForcePressEndCallback? onForcePressEnd;
 
   /// How this gesture detector should behave during hit testing.
   ///
   /// This defaults to [HitTestBehavior.deferToChild] if [child] is not null and
   /// [HitTestBehavior.translucent] if child is null.
-  final HitTestBehavior behavior;
+  final HitTestBehavior? behavior;
 
   /// Whether to exclude these gestures from the semantics tree. For
   /// example, the long-press gesture for showing a tooltip is
@@ -612,7 +614,7 @@ class RawGestureDetector extends StatefulWidget {
   /// that is used by assistive technology. This can be controlled using
   /// [excludeFromSemantics].
   const RawGestureDetector(
-      {Key key,
+      {Key? key,
       this.child,
       this.gestures = const <Type, GestureRecognizerFactory>{},
       this.behavior,
@@ -624,7 +626,7 @@ class RawGestureDetector extends StatefulWidget {
   /// The widget below this widget in the tree.
   ///
   /// {@macro flutter.widgets.child}
-  final Widget child;
+  final Widget? child;
 
   /// The gestures that this widget will attempt to recognize.
   ///
@@ -639,7 +641,7 @@ class RawGestureDetector extends StatefulWidget {
   ///
   /// This defaults to [HitTestBehavior.deferToChild] if [child] is not null and
   /// [HitTestBehavior.translucent] if child is null.
-  final HitTestBehavior behavior;
+  final HitTestBehavior? behavior;
 
   /// Whether to exclude these gestures from the semantics tree. For
   /// example, the long-press gesture for showing a tooltip is
@@ -654,7 +656,7 @@ class RawGestureDetector extends StatefulWidget {
 
 /// State for a [RawGestureDetector].
 class RawGestureDetectorState extends State<RawGestureDetector> {
-  Map<Type, GestureRecognizer> _recognizers = const <Type, GestureRecognizer>{};
+  Map<Type, GestureRecognizer?>? _recognizers = const <Type, GestureRecognizer?>{};
 
   @override
   void initState() {
@@ -683,7 +685,7 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
   /// that value until the next build.
   void replaceGestureRecognizers(Map<Type, GestureRecognizerFactory> gestures) {
     assert(() {
-      if (!context.findRenderObject().owner.debugDoingLayout) {
+      if (!context.findRenderObject()!.owner!.debugDoingLayout) {
         throw FlutterError(
             'Unexpected call to replaceGestureRecognizers() method of RawGestureDetectorState.\n'
             'The replaceGestureRecognizers() method can only be called during the layout phase. '
@@ -695,11 +697,11 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
     }());
     _syncAll(gestures);
     if (!widget.excludeFromSemantics) {
-      final RenderSemanticsGestureHandler semanticsGestureHandler =
-          context.findRenderObject();
+      final RenderSemanticsGestureHandler? semanticsGestureHandler =
+          context.findRenderObject() as RenderSemanticsGestureHandler?;
       context.visitChildElements((Element element) {
-        final _GestureSemantics widget = element.widget;
-        widget._updateHandlers(semanticsGestureHandler);
+        final _GestureSemantics widget = element.widget as _GestureSemantics;
+        widget._updateHandlers(semanticsGestureHandler!);
       });
     }
   }
@@ -717,8 +719,8 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
   /// actions to filter changes, it must be called again.
   void replaceSemanticsActions(Set<SemanticsAction> actions) {
     assert(() {
-      final Element element = context;
-      if (element.owner.debugBuilding) {
+      final Element element = context as Element;
+      if (element.owner!.debugBuilding) {
         throw FlutterError(
             'Unexpected call to replaceSemanticsActions() method of RawGestureDetectorState.\n'
             'The replaceSemanticsActions() method can only be called outside of the build phase.');
@@ -727,7 +729,7 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
     }());
     if (!widget.excludeFromSemantics) {
       final RenderSemanticsGestureHandler semanticsGestureHandler =
-          context.findRenderObject();
+          context.findRenderObject() as RenderSemanticsGestureHandler;
       semanticsGestureHandler.validActions =
           actions; // will call _markNeedsSemanticsUpdate(), if required.
     }
@@ -735,34 +737,34 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
 
   @override
   void dispose() {
-    for (GestureRecognizer recognizer in _recognizers.values)
-      recognizer.dispose();
+    for (GestureRecognizer? recognizer in _recognizers!.values)
+      recognizer!.dispose();
     _recognizers = null;
     super.dispose();
   }
 
   void _syncAll(Map<Type, GestureRecognizerFactory> gestures) {
     assert(_recognizers != null);
-    final Map<Type, GestureRecognizer> oldRecognizers = _recognizers;
-    _recognizers = <Type, GestureRecognizer>{};
+    final Map<Type, GestureRecognizer?> oldRecognizers = _recognizers!;
+    _recognizers = <Type, GestureRecognizer?>{};
     for (Type type in gestures.keys) {
       assert(gestures[type] != null);
-      assert(gestures[type]._debugAssertTypeMatches(type));
-      assert(!_recognizers.containsKey(type));
-      _recognizers[type] = oldRecognizers[type] ?? gestures[type].constructor();
-      assert(_recognizers[type].runtimeType == type,
-          'GestureRecognizerFactory of type $type created a GestureRecognizer of type ${_recognizers[type].runtimeType}. The GestureRecognizerFactory must be specialized with the type of the class that it returns from its constructor method.');
-      gestures[type].initializer(_recognizers[type]);
+      assert(gestures[type]!._debugAssertTypeMatches(type));
+      assert(!_recognizers!.containsKey(type));
+      _recognizers![type] = oldRecognizers[type] ?? gestures[type]!.constructor();
+      assert(_recognizers![type].runtimeType == type,
+          'GestureRecognizerFactory of type $type created a GestureRecognizer of type ${_recognizers![type].runtimeType}. The GestureRecognizerFactory must be specialized with the type of the class that it returns from its constructor method.');
+      gestures[type]!.initializer(_recognizers![type]);
     }
     for (Type type in oldRecognizers.keys) {
-      if (!_recognizers.containsKey(type)) oldRecognizers[type].dispose();
+      if (!_recognizers!.containsKey(type)) oldRecognizers[type]!.dispose();
     }
   }
 
   void _handlePointerDown(PointerDownEvent event) {
     assert(_recognizers != null);
-    for (GestureRecognizer recognizer in _recognizers.values)
-      recognizer.addPointer(event);
+    for (GestureRecognizer? recognizer in _recognizers!.values)
+      recognizer!.addPointer(event);
   }
 
   HitTestBehavior get _defaultBehavior {
@@ -772,41 +774,41 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
   }
 
   void _handleSemanticsTap() {
-    final TapGestureRecognizer recognizer = _recognizers[TapGestureRecognizer];
+    final TapGestureRecognizer recognizer = _recognizers![TapGestureRecognizer] as TapGestureRecognizer;
     assert(recognizer != null);
-    if (recognizer.onTapDown != null) recognizer.onTapDown(TapDownDetails());
-    if (recognizer.onTapUp != null) recognizer.onTapUp(TapUpDetails());
-    if (recognizer.onTap != null) recognizer.onTap();
+    if (recognizer.onTapDown != null) recognizer.onTapDown!(TapDownDetails());
+    if (recognizer.onTapUp != null) recognizer.onTapUp!(TapUpDetails(kind: PointerDeviceKind.touch));
+    if (recognizer.onTap != null) recognizer.onTap!();
   }
 
   void _handleSemanticsLongPress() {
     final LongPressGestureRecognizer recognizer =
-        _recognizers[LongPressGestureRecognizer];
+        _recognizers![LongPressGestureRecognizer] as LongPressGestureRecognizer;
     assert(recognizer != null);
-    if (recognizer.onLongPress != null) recognizer.onLongPress();
+    if (recognizer.onLongPress != null) recognizer.onLongPress!();
   }
 
   void _handleSemanticsHorizontalDragUpdate(DragUpdateDetails updateDetails) {
     {
-      final HorizontalDragGestureRecognizer recognizer =
-          _recognizers[HorizontalDragGestureRecognizer];
+      final HorizontalDragGestureRecognizer? recognizer =
+          _recognizers![HorizontalDragGestureRecognizer] as HorizontalDragGestureRecognizer?;
       if (recognizer != null) {
-        if (recognizer.onDown != null) recognizer.onDown(DragDownDetails());
-        if (recognizer.onStart != null) recognizer.onStart(DragStartDetails());
-        if (recognizer.onUpdate != null) recognizer.onUpdate(updateDetails);
+        if (recognizer.onDown != null) recognizer.onDown!(DragDownDetails());
+        if (recognizer.onStart != null) recognizer.onStart!(DragStartDetails());
+        if (recognizer.onUpdate != null) recognizer.onUpdate!(updateDetails);
         if (recognizer.onEnd != null)
-          recognizer.onEnd(DragEndDetails(primaryVelocity: 0.0));
+          recognizer.onEnd!(DragEndDetails(primaryVelocity: 0.0));
         return;
       }
     }
     {
-      final PanGestureRecognizer recognizer =
-          _recognizers[PanGestureRecognizer];
+      final PanGestureRecognizer? recognizer =
+          _recognizers![PanGestureRecognizer] as PanGestureRecognizer?;
       if (recognizer != null) {
-        if (recognizer.onDown != null) recognizer.onDown(DragDownDetails());
-        if (recognizer.onStart != null) recognizer.onStart(DragStartDetails());
-        if (recognizer.onUpdate != null) recognizer.onUpdate(updateDetails);
-        if (recognizer.onEnd != null) recognizer.onEnd(DragEndDetails());
+        if (recognizer.onDown != null) recognizer.onDown!(DragDownDetails());
+        if (recognizer.onStart != null) recognizer.onStart!(DragStartDetails());
+        if (recognizer.onUpdate != null) recognizer.onUpdate!(updateDetails);
+        if (recognizer.onEnd != null) recognizer.onEnd!(DragEndDetails());
         return;
       }
     }
@@ -814,25 +816,25 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
 
   void _handleSemanticsVerticalDragUpdate(DragUpdateDetails updateDetails) {
     {
-      final VerticalDragGestureRecognizer recognizer =
-          _recognizers[VerticalDragGestureRecognizer];
+      final VerticalDragGestureRecognizer? recognizer =
+          _recognizers![VerticalDragGestureRecognizer] as VerticalDragGestureRecognizer?;
       if (recognizer != null) {
-        if (recognizer.onDown != null) recognizer.onDown(DragDownDetails());
-        if (recognizer.onStart != null) recognizer.onStart(DragStartDetails());
-        if (recognizer.onUpdate != null) recognizer.onUpdate(updateDetails);
+        if (recognizer.onDown != null) recognizer.onDown!(DragDownDetails());
+        if (recognizer.onStart != null) recognizer.onStart!(DragStartDetails());
+        if (recognizer.onUpdate != null) recognizer.onUpdate!(updateDetails);
         if (recognizer.onEnd != null)
-          recognizer.onEnd(DragEndDetails(primaryVelocity: 0.0));
+          recognizer.onEnd!(DragEndDetails(primaryVelocity: 0.0));
         return;
       }
     }
     {
-      final PanGestureRecognizer recognizer =
-          _recognizers[PanGestureRecognizer];
+      final PanGestureRecognizer? recognizer =
+          _recognizers![PanGestureRecognizer] as PanGestureRecognizer?;
       if (recognizer != null) {
-        if (recognizer.onDown != null) recognizer.onDown(DragDownDetails());
-        if (recognizer.onStart != null) recognizer.onStart(DragStartDetails());
-        if (recognizer.onUpdate != null) recognizer.onUpdate(updateDetails);
-        if (recognizer.onEnd != null) recognizer.onEnd(DragEndDetails());
+        if (recognizer.onDown != null) recognizer.onDown!(DragDownDetails());
+        if (recognizer.onStart != null) recognizer.onStart!(DragStartDetails());
+        if (recognizer.onUpdate != null) recognizer.onUpdate!(updateDetails);
+        if (recognizer.onEnd != null) recognizer.onEnd!(DragEndDetails());
         return;
       }
     }
@@ -855,14 +857,14 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
     if (_recognizers == null) {
       properties.add(DiagnosticsNode.message('DISPOSED'));
     } else {
-      final List<String> gestures = _recognizers.values
+      final List<String> gestures = _recognizers!.values
           .map<String>(
-              (GestureRecognizer recognizer) => recognizer.debugDescription)
+              (GestureRecognizer? recognizer) => recognizer!.debugDescription)
           .toList();
       properties.add(
           IterableProperty<String>('gestures', gestures, ifEmpty: '<none>'));
-      properties.add(IterableProperty<GestureRecognizer>(
-          'recognizers', _recognizers.values,
+      properties.add(IterableProperty<GestureRecognizer?>(
+          'recognizers', _recognizers!.values,
           level: DiagnosticLevel.fine));
     }
     properties.add(EnumProperty<HitTestBehavior>('behavior', widget.behavior,
@@ -871,10 +873,10 @@ class RawGestureDetectorState extends State<RawGestureDetector> {
 }
 
 class _GestureSemantics extends SingleChildRenderObjectWidget {
-  const _GestureSemantics({Key key, Widget child, this.owner})
+  const _GestureSemantics({Key? key, Widget? child, this.owner})
       : super(key: key, child: child);
 
-  final RawGestureDetectorState owner;
+  final RawGestureDetectorState? owner;
 
   @override
   RenderSemanticsGestureHandler createRenderObject(BuildContext context) {
@@ -900,29 +902,29 @@ class _GestureSemantics extends SingleChildRenderObjectWidget {
     _updateHandlers(renderObject);
   }
 
-  GestureTapCallback get _onTapHandler {
-    return owner._recognizers.containsKey(TapGestureRecognizer)
-        ? owner._handleSemanticsTap
+  GestureTapCallback? get _onTapHandler {
+    return owner!._recognizers!.containsKey(TapGestureRecognizer)
+        ? owner!._handleSemanticsTap
         : null;
   }
 
-  GestureTapCallback get _onLongPressHandler {
-    return owner._recognizers.containsKey(LongPressGestureRecognizer)
-        ? owner._handleSemanticsLongPress
+  GestureTapCallback? get _onLongPressHandler {
+    return owner!._recognizers!.containsKey(LongPressGestureRecognizer)
+        ? owner!._handleSemanticsLongPress
         : null;
   }
 
-  GestureDragUpdateCallback get _onHorizontalDragUpdateHandler {
-    return owner._recognizers.containsKey(HorizontalDragGestureRecognizer) ||
-            owner._recognizers.containsKey(PanGestureRecognizer)
-        ? owner._handleSemanticsHorizontalDragUpdate
+  GestureDragUpdateCallback? get _onHorizontalDragUpdateHandler {
+    return owner!._recognizers!.containsKey(HorizontalDragGestureRecognizer) ||
+            owner!._recognizers!.containsKey(PanGestureRecognizer)
+        ? owner!._handleSemanticsHorizontalDragUpdate
         : null;
   }
 
-  GestureDragUpdateCallback get _onVerticalDragUpdateHandler {
-    return owner._recognizers.containsKey(VerticalDragGestureRecognizer) ||
-            owner._recognizers.containsKey(PanGestureRecognizer)
-        ? owner._handleSemanticsVerticalDragUpdate
+  GestureDragUpdateCallback? get _onVerticalDragUpdateHandler {
+    return owner!._recognizers!.containsKey(VerticalDragGestureRecognizer) ||
+            owner!._recognizers!.containsKey(PanGestureRecognizer)
+        ? owner!._handleSemanticsVerticalDragUpdate
         : null;
   }
 }

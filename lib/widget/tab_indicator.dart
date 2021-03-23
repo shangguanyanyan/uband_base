@@ -22,41 +22,41 @@ class TabIndicator extends Decoration {
   final ShapeType shapeType;
 
   /// 圆形指示器的半径
-  final double radius;
+  final double? radius;
 
   /// 指示器的宽度
   final double wantWidth;
 
   @override
-  Decoration lerpFrom(Decoration a, double t) {
+  Decoration? lerpFrom(Decoration? a, double t) {
     if (a is UnderlineTabIndicator) {
       return UnderlineTabIndicator(
         borderSide: BorderSide.lerp(a.borderSide, borderSide, t),
-        insets: EdgeInsetsGeometry.lerp(a.insets, insets, t),
+        insets: EdgeInsetsGeometry.lerp(a.insets, insets, t)!,
       );
     }
     return super.lerpFrom(a, t);
   }
 
   @override
-  Decoration lerpTo(Decoration b, double t) {
+  Decoration? lerpTo(Decoration? b, double t) {
     if (b is TabIndicator) {
       return TabIndicator(
         borderSide: BorderSide.lerp(borderSide, b.borderSide, t),
-        insets: EdgeInsetsGeometry.lerp(insets, b.insets, t),
+        insets: EdgeInsetsGeometry.lerp(insets, b.insets, t)!,
       );
     }
     return super.lerpTo(b, t);
   }
 
   @override
-  _HomeworkTabPainter createBoxPainter([VoidCallback onChanged]) {
+  _HomeworkTabPainter createBoxPainter([VoidCallback? onChanged]) {
     return _HomeworkTabPainter(this, onChanged);
   }
 }
 
 class _HomeworkTabPainter extends BoxPainter {
-  _HomeworkTabPainter(this.decoration, VoidCallback onChanged)
+  _HomeworkTabPainter(this.decoration, VoidCallback? onChanged)
       : assert(decoration != null),
         super(onChanged);
 
@@ -68,7 +68,7 @@ class _HomeworkTabPainter extends BoxPainter {
 
   double get wantWidth => decoration.wantWidth;
 
-  double get radius => decoration.radius;
+  double? get radius => decoration.radius;
 
   ShapeType get shapeType => decoration.shapeType;
 
@@ -93,7 +93,7 @@ class _HomeworkTabPainter extends BoxPainter {
     //取中间坐标
     double cw = (indicator.left + indicator.right) / 2;
     return Rect.fromLTWH(cw - wantWidth / 2,
-        indicator.bottom - 2 * radius, wantWidth, 0);
+        indicator.bottom - 2 * radius!, wantWidth, 0);
   }
 
   /// 弧线
@@ -111,24 +111,24 @@ class _HomeworkTabPainter extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     assert(configuration != null);
     assert(configuration.size != null);
-    final Rect rect = offset & configuration.size;
-    final TextDirection textDirection = configuration.textDirection;
+    final Rect rect = offset & configuration.size!;
+    final TextDirection? textDirection = configuration.textDirection;
 
     switch (shapeType) {
       case ShapeType.rectangle:
         final Rect indicator =
-        _indicatorRectForRectangle(rect, textDirection).deflate(borderSide.width / 2.0);
+        _indicatorRectForRectangle(rect, textDirection!).deflate(borderSide.width / 2.0);
         paintRectangle(indicator, canvas);
         break;
       case ShapeType.oval:
         final Rect indicator =
-        _indicatorRectForCircle(rect, textDirection).deflate(
+        _indicatorRectForCircle(rect, textDirection!).deflate(
             borderSide.width / 2.0);
         paintDote(indicator, canvas);
         break;
       case ShapeType.curve:
         final Rect indicator =
-        _indicatorRectForCurve(rect, textDirection).deflate(
+        _indicatorRectForCurve(rect, textDirection!).deflate(
             borderSide.width / 2.0);
         paintCurve(indicator, canvas, configuration.size);
         break;
@@ -145,10 +145,10 @@ class _HomeworkTabPainter extends BoxPainter {
     final Paint paint = borderSide.toPaint()
       ..strokeCap = StrokeCap.butt
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(indicator.topCenter, decoration.radius, paint);
+    canvas.drawCircle(indicator.topCenter, decoration.radius!, paint);
   }
 
-  void paintCurve(Rect indicator, Canvas canvas, Size size) {
+  void paintCurve(Rect indicator, Canvas canvas, Size? size) {
     final Paint paint = borderSide.toPaint()
       ..isAntiAlias = true
       ..strokeCap = StrokeCap.round

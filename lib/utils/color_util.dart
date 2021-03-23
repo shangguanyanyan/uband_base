@@ -9,7 +9,7 @@ class ColorUtil {
   /// 将 16 进制的颜色值转为 [Color]
   /// 
   /// 支持 `#fff`、`#ffffff`、`#ffffffff` 的格式，以及单独带透明度 [alpha]
-  static Color hex(String hex, {double alpha}) {
+  static Color hex(String hex, {double? alpha}) {
     if (hex == null || !expectPattern.hasMatch(hex)) {
       throw ErrorDescription('color value($hex) must be a valid hex string.');
     }

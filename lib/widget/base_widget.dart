@@ -6,8 +6,8 @@ import 'package:ubandbase/utils/utils.dart';
 
 class Base {
   /// appbar 返回键
-  static Widget buildLeading(VoidCallback callback,
-      {Widget widget, String icon, Color color}) {
+  static Widget? buildLeading(VoidCallback callback,
+      {Widget? widget, String? icon, Color? color}) {
     if (widget == null) {
       widget = IconButton(
         onPressed: () => callback?.call(),
@@ -28,8 +28,8 @@ class Base {
 
   /// 圆角卡片
   static Widget buildCard(
-      {@required Widget child,
-      double radius,
+      {required Widget child,
+      double? radius,
       Color color = Colors.white,
       AlignmentGeometry alignment = AlignmentDirectional.center,
       EdgeInsetsGeometry margin = EdgeInsets.zero,
@@ -46,11 +46,11 @@ class Base {
 
   /// appbar 按钮
   static Widget buildActionButton(String action,
-      {AlignmentDirectional alignment,
-      String describe,
+      {AlignmentDirectional? alignment,
+      String? describe,
       double size = 24,
-      Widget positioned,
-      VoidCallback callback}) {
+      Widget? positioned,
+      VoidCallback? callback}) {
     return Stack(
       alignment: alignment ?? AlignmentDirectional.topStart,
       children: <Widget>[

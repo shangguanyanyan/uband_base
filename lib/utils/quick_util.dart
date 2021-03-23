@@ -6,54 +6,54 @@ import 'color_util.dart';
 import 'adapt_util.dart';
 
 class TextDescriptor {
-  String _text;
+  String? _text;
   TextDescriptor(this._text, {
-    double fontSize,
-    Color color,
+    double? fontSize,
+    Color? color,
   }) : this._fontSize = fontSize ?? 14,
        this._color = color;
 
   // TextStyle _style;
-  Color _color;
-  Color _backgroundColor;
+  Color? _color;
+  Color? _backgroundColor;
   double _fontSize = 14;
   FontWeight _fontWeight = FontWeight.normal;
   FontStyle _fontStyle = FontStyle.normal;
-  double _letterSpacing;
-  double _wordSpacing;
-  TextBaseline _textBaseline;
-  double _height;
-  Locale _locale;
-  Paint _foreground;
-  Paint _background;
-  List<Shadow> _shadows;
-  List<FontFeature> _fontFeatures;
-  TextDecoration _decoration;
-  Color _decorationColor;
-  TextDecorationStyle _decorationStyle;
-  double _decorationThickness;
-  String _fontFamily = 'PingFang SC';
+  double? _letterSpacing;
+  double? _wordSpacing;
+  TextBaseline? _textBaseline;
+  double? _height;
+  Locale? _locale;
+  Paint? _foreground;
+  Paint? _background;
+  List<Shadow>? _shadows;
+  List<FontFeature>? _fontFeatures;
+  TextDecoration? _decoration;
+  Color? _decorationColor;
+  TextDecorationStyle? _decorationStyle;
+  double? _decorationThickness;
+  String? _fontFamily = 'PingFang SC';
   List<String> _fontFamilyFallback = ['sans-serif'];
 
   TextAlign _textAlign = TextAlign.start;
   TextDirection _textDirection = TextDirection.ltr;
-  bool _softWrap;
-  TextOverflow _overflow;
-  double _textScaleFactor;
-  int _maxLines;
+  bool? _softWrap;
+  TextOverflow? _overflow;
+  double? _textScaleFactor;
+  int? _maxLines;
 
-  TextDescriptor family([String fontFamily]) {
+  TextDescriptor family([String? fontFamily]) {
     _fontFamily = fontFamily;
     return this;
   }
 
-  TextDescriptor bold([FontWeight weight]) {
+  TextDescriptor bold([FontWeight? weight]) {
     assert(weight != FontWeight.normal);
     _fontWeight = weight ?? FontWeight.bold;
     return this;
   }
 
-  TextDescriptor textAlign([TextAlign textAlign]){
+  TextDescriptor textAlign([TextAlign? textAlign]){
     _textAlign = textAlign ?? TextAlign.start;
     return this;
   }
@@ -70,7 +70,7 @@ class TextDescriptor {
     return this;
   }
 
-  TextDescriptor del([double width]) {
+  TextDescriptor del([double? width]) {
     _decoration = TextDecoration.lineThrough;
     _decorationThickness = width;
     return this;
@@ -78,7 +78,7 @@ class TextDescriptor {
 
   TextDescriptor underline(double width, {
     TextDecorationStyle style = TextDecorationStyle.dashed,
-    Color color,
+    Color? color,
   }) {
     _decoration = TextDecoration.underline;
     _decorationStyle = style;
@@ -87,7 +87,7 @@ class TextDescriptor {
     return this;
   }
 
-  TextDescriptor colorHex(String hex, {double alpha}) {
+  TextDescriptor colorHex(String hex, {double? alpha}) {
     _color = ColorUtil.hex(hex, alpha: alpha);
     return this;
   }
@@ -102,7 +102,7 @@ class TextDescriptor {
     return this;
   }
 
-  TextDescriptor bgColorHex(String backgroundColor, {double alpha}) {
+  TextDescriptor bgColorHex(String backgroundColor, {double? alpha}) {
     _backgroundColor = ColorUtil.hex(backgroundColor, alpha: alpha);
     return this;
   }
@@ -125,7 +125,7 @@ class TextDescriptor {
 
   TextDescriptor overflow({
     TextOverflow behavior = TextOverflow.ellipsis,
-    int maxLines,
+    int? maxLines,
   }) {
     _overflow = behavior;
     _maxLines = maxLines;
@@ -134,7 +134,7 @@ class TextDescriptor {
 
   Text build() {
     return Text(
-      _text,
+      _text!,
       style: TextStyle(
         inherit: true,
         color: _color,
@@ -202,9 +202,9 @@ class Quick {
   /// [size] 字体大小， 单位 `px`
   /// 
   /// [color] 字体颜色
-  static TextDescriptor buildText(String text, {
-    double fontSize,
-    Color color,
+  static TextDescriptor buildText(String? text, {
+    double? fontSize,
+    Color? color,
   }) {
     if (fontSize != null) {
       fontSize = Adapt.fontPx(fontSize);
@@ -213,13 +213,13 @@ class Quick {
   }
 
   static Padding padding(Widget widget, {
-    double all,
-    double top,
-    double right,
-    double bottom,
-    double left,
-    double horizontal,
-    double vertical,
+    double? all,
+    double? top,
+    double? right,
+    double? bottom,
+    double? left,
+    double? horizontal,
+    double? vertical,
   }) {
     EdgeInsets padding = EdgeInsets.zero;
     if (all != null) {

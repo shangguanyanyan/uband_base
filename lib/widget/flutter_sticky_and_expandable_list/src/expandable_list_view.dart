@@ -13,15 +13,15 @@ class ExpandableListView extends BoxScrollView {
   final SliverExpandableChildDelegate builder;
 
   ExpandableListView({
-    Key key,
-    @required this.builder,
+    Key? key,
+    required this.builder,
     bool reverse = false,
-    ScrollController controller,
-    bool primary,
-    ScrollPhysics physics,
+    ScrollController? controller,
+    bool? primary,
+    ScrollPhysics? physics,
     bool shrinkWrap = false,
-    EdgeInsetsGeometry padding,
-    double cacheExtent,
+    EdgeInsetsGeometry? padding,
+    double? cacheExtent,
     DragStartBehavior dragStartBehavior = DragStartBehavior.start,
   })  : assert(builder != null),
         super(

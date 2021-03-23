@@ -8,7 +8,7 @@ typedef GestureDoubleTapCallback = void Function(DoubleDetails details);
 /// 双击的回调信息
 class DoubleDetails {
   DoubleDetails({this.pointerEvent});
-  final PointerEvent pointerEvent;
+  final PointerEvent? pointerEvent;
   @override
   String toString() => 'DoubleDetails(pointerEvent: $pointerEvent)';
 }

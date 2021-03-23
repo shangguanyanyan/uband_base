@@ -9,8 +9,8 @@ typedef SliverValueLayoutWidgetBuilder<T> = Widget Function(
 
 class SliverValueConstraints<T> extends SliverConstraints {
   SliverValueConstraints({
-    @required this.value,
-    @required SliverConstraints constraints,
+    required this.value,
+    required SliverConstraints constraints,
   })  : assert(constraints != null),
         super(
           axisDirection: constraints.axisDirection,
@@ -85,8 +85,8 @@ class SliverValueLayoutBuilder<T>
   ///
   /// The [builder] argument must not be null.
   const SliverValueLayoutBuilder({
-    Key key,
-    SliverValueLayoutWidgetBuilder<T> builder,
+    Key? key,
+    required SliverValueLayoutWidgetBuilder<T> builder,
   }) : super(key: key, builder: builder);
 
   /// Called at layout time to construct the widget tree.
@@ -129,16 +129,16 @@ class _RenderSliverValueLayoutBuilder<T> extends RenderSliver
   @override
   void paint(PaintingContext context, Offset offset) {
     // This renderObject does not introduce additional offset to child's position.
-    if (child?.geometry?.visible == true) context.paintChild(child, offset);
+    if (child?.geometry?.visible == true) context.paintChild(child!, offset);
   }
 
   @override
   bool hitTestChildren(SliverHitTestResult result,
-      {double mainAxisPosition, double crossAxisPosition}) {
+      {double? mainAxisPosition, double? crossAxisPosition}) {
     return child != null &&
-        child.geometry.hitTestExtent > 0 &&
-        child.hitTest(result,
-            mainAxisPosition: mainAxisPosition,
-            crossAxisPosition: crossAxisPosition);
+        child!.geometry!.hitTestExtent > 0 &&
+        child!.hitTest(result,
+            mainAxisPosition: mainAxisPosition!,
+            crossAxisPosition: crossAxisPosition!);
   }
 }

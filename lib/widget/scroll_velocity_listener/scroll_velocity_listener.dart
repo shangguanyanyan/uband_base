@@ -7,8 +7,8 @@ class ScrollVelocityListener extends StatefulWidget {
   final Widget child;
 
   ScrollVelocityListener({
-    @required this.onVelocity,
-    @required this.child,
+    required this.onVelocity,
+    required this.child,
   });
 
   @override
@@ -25,7 +25,7 @@ class _ScrollVelocityListenerState extends State<ScrollVelocityListener> {
         final now = DateTime.now();
         final timeDiff = now.millisecondsSinceEpoch - lastMilli;
         if (notification is ScrollUpdateNotification) {
-          final pixelsPerMilli = notification.scrollDelta / timeDiff;
+          final pixelsPerMilli = notification.scrollDelta! / timeDiff;
           widget.onVelocity(
             pixelsPerMilli,
           );

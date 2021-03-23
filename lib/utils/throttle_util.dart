@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 /// 控制目标函数在一定时间内只调用一次
 class Throttle {
 
-  Duration duration;
+  late Duration duration;
 
-  DateTime recentTrigger;
+  late DateTime recentTrigger;
 
   Throttle._();
 

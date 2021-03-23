@@ -8,8 +8,8 @@ const Duration _kExpand = Duration(milliseconds: 200);
 /// 仿照expansion_tile自定义的展开收起控件
 /// 下方展开内容可以是任意widget
 class CustomExpansionTile extends StatefulWidget {
-  const CustomExpansionTile({Key key,
-    @required this.tileBuilder,
+  const CustomExpansionTile({Key? key,
+    required this.tileBuilder,
     this.onExpansionChanged,
     this.children = const <Widget>[],
     this.trailing,
@@ -23,13 +23,13 @@ class CustomExpansionTile extends StatefulWidget {
         super(key: key);
 
   /// 展开时的回调
-  final ValueChanged<bool> onExpansionChanged;
+  final ValueChanged<bool>? onExpansionChanged;
   final WidgetBuilder tileBuilder;
 
   final List<Widget> children;
 
   /// 展开按钮
-  final Widget trailing;
+  final Widget? trailing;
 
   final bool initiallyExpanded;
 
@@ -62,11 +62,11 @@ class _ExpansionTileState extends State<CustomExpansionTile>
   final ColorTween _iconColorTween = ColorTween();
   final ColorTween _backgroundColorTween = ColorTween();
 
-  AnimationController _controller;
-  Animation<double> _iconTurns;
-  Animation<double> _heightFactor;
-  Animation<Color> _borderColor;
-  Animation<Color> _backgroundColor;
+  late AnimationController _controller;
+  late Animation<double> _iconTurns;
+  late Animation<double> _heightFactor;
+  late Animation<Color?> _borderColor;
+  late Animation<Color?> _backgroundColor;
 
   bool _isExpanded = false;
 
@@ -84,7 +84,7 @@ class _ExpansionTileState extends State<CustomExpansionTile>
         _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
     _isExpanded =
-        PageStorage.of(context)?.readState(context) as bool ?? widget.initiallyExpanded;
+        PageStorage.of(context)?.readState(context) as bool? ?? widget.initiallyExpanded;
     if (_isExpanded) _controller.value = 1.0;
   }
 
@@ -110,10 +110,10 @@ class _ExpansionTileState extends State<CustomExpansionTile>
       PageStorage.of(context)?.writeState(context, _isExpanded);
     });
     if (widget.onExpansionChanged != null)
-      widget.onExpansionChanged(_isExpanded);
+      widget.onExpansionChanged!(_isExpanded);
   }
 
-  Widget _buildChildren(BuildContext context, Widget child) {
+  Widget _buildChildren(BuildContext context, Widget? child) {
     final Color borderSideColor = _borderColor.value ?? Colors.transparent;
     return Container(
       decoration: BoxDecoration(
@@ -170,7 +170,7 @@ class _ExpansionTileState extends State<CustomExpansionTile>
     final ThemeData theme = Theme.of(context);
     _borderColorTween..end = theme.dividerColor;
     _headerColorTween
-      ..begin = theme.textTheme.subhead.color
+      ..begin = theme.textTheme.subhead!.color
       ..end = theme.accentColor;
     _iconColorTween
       ..begin = theme.unselectedWidgetColor
