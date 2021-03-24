@@ -466,7 +466,7 @@ class CustomDialog {
       barrierDismissible: _barrierDismissible ?? true,
       barrierLabel: "",
       transitionDuration: _duration ?? Duration(milliseconds: 250),
-      transitionBuilder: _transitionsBuilder ?? _buildMaterialDialogTransitions as Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?,
+      transitionBuilder: _transitionsBuilder ?? _buildMaterialDialogTransitions ,
       pageBuilder: (BuildContext buildContext, Animation<double> animation,
           Animation<double> secondaryAnimation) {
         return Builder(
@@ -478,7 +478,7 @@ class CustomDialog {
     );
   }
 
-  Widget? _buildMaterialDialogTransitions(
+  Widget _buildMaterialDialogTransitions(
       BuildContext context,
       Animation<double> animation,
       Animation<double> secondaryAnimation,

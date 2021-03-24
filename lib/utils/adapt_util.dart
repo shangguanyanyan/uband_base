@@ -23,7 +23,7 @@ class Adapt {
   /// 初始化方法
   /// 
   /// [designWidth] 设计稿宽度
-  static init({int? designWidth,int? designHeight,bool? ignoreTextScale}){
+  static init({int? designWidth,int? designHeight,bool? ignoreTextScale = true}){
     designWidth ??= _designWidth;
     designHeight ??= _designHeight;
     _ratio = _mediaQueryData.size.width / designWidth;
@@ -31,7 +31,7 @@ class Adapt {
     _ignoreTextScale = ignoreTextScale!;
   }
 
-  static initWithContext(BuildContext context, {int? designWidth,int? designHeight, bool? ignoreTextScale}) {
+  static initWithContext(BuildContext context, {int? designWidth,int? designHeight, bool? ignoreTextScale = true}) {
     designWidth ??= _designWidth;
     designHeight ??= _designHeight;
     _mediaQueryData = MediaQuery.of(context);
