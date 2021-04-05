@@ -7,12 +7,15 @@ import 'package:ubandbase/constant/base_colour.dart';
 import 'package:ubandbase/utils/adapt_util.dart';
 import 'package:ubandbase/utils/quick_util.dart';
 
+
 class ToastUtil {
   static FToast? _fToast;
+  static double? fontSize;
 
-  static init(BuildContext context) {
+  ToastUtil.init(BuildContext context,{double? fontSize}) {
     if (_fToast == null) _fToast = FToast();
     _fToast!.init(context);
+    ToastUtil.fontSize = fontSize?? Adapt.px(22);
   }
 
   static Widget _imgLeadToast(Widget leading, String message) {
@@ -48,11 +51,10 @@ class ToastUtil {
         Container(
             height: Adapt.px(100),
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10)
-            ),
+                color: Colors.white, borderRadius: BorderRadius.circular(10)),
             child: _imgLeadToast(img, "$message")),
-        left: _screenSize.width / 2 - Adapt.px(200),duration: 1);
+        left: _screenSize.width / 2 - Adapt.px(200),
+        duration: 1);
   }
 
   static Widget _savingToast() {
@@ -71,7 +73,6 @@ class ToastUtil {
         "加载中...");
   }
 
-
   static showGeneralToast(String message) {
     Fluttertoast.showToast(
         msg: "$message",
@@ -80,10 +81,10 @@ class ToastUtil {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.white,
         textColor: Colors.black,
-        fontSize: Adapt.px(22));
+        fontSize: fontSize);
   }
 
-  static showToast(Widget child,{double? left,int duration = 2}) {
+  static showToast(Widget child, {double? left, int duration = 2}) {
     _fToast!.showToast(
         child: child,
         toastDuration: Duration(seconds: duration),
@@ -99,5 +100,4 @@ class ToastUtil {
   static loading() => showToast(_loadingToast());
 
   static saving() => showToast(_savingToast());
-
 }
