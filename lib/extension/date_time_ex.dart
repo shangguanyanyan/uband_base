@@ -5,6 +5,7 @@ const String formatDateWithDote = 'yyyy.MM.dd';
 const String formatDateTimeWithDote = 'yyyy.MM.dd HH:mm:ss';
 const String formatDateTimeWithLine = 'yyyy-MM-dd HH:mm:ss';
 const String formatDateWithTime = 'MM-dd mm:ss';
+const String formatWithHour = "HH:mm";
 
 extension DateTimeEX on DateTime {
   String yMd() {
@@ -42,7 +43,7 @@ extension DateTimeEX on DateTime {
   }
 
   /// 使用此方法前，必须在 main 方法中调用 initializeDateFormatting([$local]) 方法
-  String getDateFormat(String endDate, String format, {String local = "zh_CN"}) {
-    return DateFormat(format, local).format(DateTime.parse(endDate).toLocal());
+  String getDateFormat(String format, {String local = "zh_CN"}) {
+    return DateFormat(format, local).format(this..toLocal());
   }
 }

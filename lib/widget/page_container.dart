@@ -14,7 +14,6 @@ class PageOption {
   final bool drawerEnableOpenDragGesture;
   final bool endDrawerEnableOpenDragGesture;
 
-
   const PageOption(
       {this.floatingActionButton,
       this.floatingActionButtonLocation,
@@ -48,7 +47,7 @@ class PageContainer extends StatefulWidget {
   final Color backgroundColor;
 
   /// 返回键按钮，showAppBar=true且customAppBar=null时有效
-  final String? leadingIcon;
+  final Widget? leadingIcon;
 
   /// 点击空白处页面，移除输入框焦点
   final bool clickBlankToBlur;
@@ -129,7 +128,8 @@ class _PageContainerState extends State<PageContainer> with RouteAware {
           ? IconButton(
               onPressed: _handleBack,
               color: Colors.black87,
-              icon: Icon(Icons.chevron_left, size: Adapt.px(30)),
+              icon: widget.leadingIcon ??
+                  Icon(Icons.chevron_left, size: Adapt.px(30)),
             )
           : null,
       actions: widget.actions,

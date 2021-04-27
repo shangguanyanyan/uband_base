@@ -48,6 +48,8 @@ dependencies:
   #sticky_and_expandable_list: ^0.2.3
   # 可用于 sliver 的粘性头部组件
   #flutter_sticky_header: ^0.5.0
+  # 本地临时存储
+  shared_preferences: ^2.0.5
   image_picker: ^0.7.3
   camera: ^0.8.0
 
