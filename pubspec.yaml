@@ -35,7 +35,7 @@ dependencies:
   # 获取不同平台包信息 https://pub.flutter-io.cn/packages/package_info
   package_info: ^2.0.0
   # 支持不同平台下打开 URL https://pub.flutter-io.cn/packages/url_launcher
-  url_launcher: ^6.0.2
+  url_launcher: ^6.0.12
   # 国际化 https://pub.flutter-io.cn/packages/flutter_i18n
   flutter_i18n: ^0.22.3
   # toast https://pub.flutter-io.cn/packages/fluttertoast
