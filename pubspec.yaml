@@ -51,7 +51,7 @@ dependencies:
   # 本地临时存储
   shared_preferences: ^2.0.5
   image_picker: ^0.7.3
-  camera: ^0.8.0
+  camera: ^0.9.4+3
 
 dev_dependencies:
   flutter_test:
