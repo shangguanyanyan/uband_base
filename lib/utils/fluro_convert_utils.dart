@@ -62,7 +62,7 @@ class FluroConvertUtils {
     if (!routeName.endsWith('?') && param.isNotEmpty) {
       routeName = routeName + '?';
       param.forEach((String key, dynamic param) {
-        routeName = routeName + key + "=" + param + "&";
+        routeName = routeName + key + "=" + "$param" + "&";
       });
       routeName = routeName.substring(0, routeName.length - 1);
     }
