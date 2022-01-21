@@ -84,17 +84,18 @@ class ToastUtil {
         fontSize: fontSize);
   }
 
-  static showToast(Widget child, {double? left, int duration = 2}) {
+  static showToast(Widget child, {ToastGravity gravity = ToastGravity.BOTTOM,double? left, int duration = 2}) {
     _fToast!.showToast(
         child: child,
         toastDuration: Duration(seconds: duration),
-        positionedToastBuilder: (context, child) {
+        gravity:gravity
+        /*positionedToastBuilder: (context, child) {
           var _screenSize = window.physicalSize / window.devicePixelRatio;
           return Positioned(
               top: _screenSize.height / 2 - Adapt.px(25),
               left: left == null ? _screenSize.width / 2 - Adapt.px(87) : left,
               child: child);
-        });
+        }*/);
   }
 
   static loading() => showToast(_loadingToast());
