@@ -1,54 +1,11 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ubandbase/constant/misc/misc.export.dart';
-import 'package:ubandbase/utils/toast_util.dart';
 import 'package:ubandbase/widget/placeholder/loading.widget.dart';
 
-typedef void _HandlerErrorCallback(Object error);
 
-_HandlerErrorCallback handle(BuildContext context) {
-  return (Object error) => handleError(context, error);
-}
 
-void handleError(BuildContext context, Object error) {
-  if (error is DioError) {
-    String message = error.message;
-    switch (error.type) {
-      case DioErrorType.cancel:
-        message = '取消请求';
-        break;
-      case DioErrorType.sendTimeout:
-      case DioErrorType.connectTimeout:
-      case DioErrorType.receiveTimeout:
-        message = '网络连接超时，请重试';
-        break;
-      case DioErrorType.response:
-        final statusCode = error.response!.statusCode!;
-        if (statusCode >= 400 && statusCode <= 417) {
-          message = '访问地址异常，请稍后重试 $statusCode';
-        } else if (statusCode >= 500 && statusCode <= 505) {
-          message = '服务器繁忙 $statusCode';
-        }
-        break;
-      case DioErrorType.other:
-        message = kReleaseMode ? '网络异常，请重试' : error.message;
-        break;
-      default:
-        message = '网络异常，请重试';
-    }
-    ToastUtil.showGeneralToast(message);
-  } else if (error is String) {
-    ToastUtil.showGeneralToast(error);
-  } else if (error is BizException) {
-    ToastUtil.showGeneralToast(error.message);
-  } else {
-    ToastUtil.showGeneralToast(error.toString());
-  }
-}
 
 /// 等待页
 Future<T> loading<T>(

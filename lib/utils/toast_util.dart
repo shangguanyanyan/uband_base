@@ -2,13 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:ubandbase/constant/base_colour.dart';
 import 'package:ubandbase/utils/adapt_util.dart';
 import 'package:ubandbase/utils/quick_util.dart';
 
 
-class ToastUtil {
+/*class ToastUtil {
   static FToast? _fToast;
   static double? fontSize;
 
@@ -89,16 +89,16 @@ class ToastUtil {
         child: child,
         toastDuration: Duration(seconds: duration),
         gravity:gravity
-        /*positionedToastBuilder: (context, child) {
+        *//*positionedToastBuilder: (context, child) {
           var _screenSize = window.physicalSize / window.devicePixelRatio;
           return Positioned(
               top: _screenSize.height / 2 - Adapt.px(25),
               left: left == null ? _screenSize.width / 2 - Adapt.px(87) : left,
               child: child);
-        }*/);
+        }*//*);
   }
 
   static loading() => showToast(_loadingToast());
 
   static saving() => showToast(_savingToast());
-}
+}*/
