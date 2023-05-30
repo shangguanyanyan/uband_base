@@ -29,7 +29,6 @@ extension WidgetEX on Widget {
     assert(logicalSize.aspectRatio == imageSize.aspectRatio);
 
     final RenderView renderView = RenderView(
-      window: window,
       child: RenderPositionedBox(
         alignment: Alignment.center,
         child: repaintBoundary,
@@ -38,6 +37,7 @@ extension WidgetEX on Widget {
         size: logicalSize,
         devicePixelRatio: 1.0,
       ),
+      view: window,
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();
@@ -70,7 +70,8 @@ extension WidgetEX on Widget {
     final ui.Image image = await repaintBoundary.toImage(
       pixelRatio: imageSize.width / logicalSize.width,
     );
-    final byteData = await (image.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
+    final byteData = await (image.toByteData(format: ui.ImageByteFormat.png)
+        as FutureOr<ByteData>);
 
     return byteData.buffer.asUint8List();
   }
