@@ -57,8 +57,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#dependency_overrides:
-
+dependency_overrides:
+  intl: 0.18.0
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

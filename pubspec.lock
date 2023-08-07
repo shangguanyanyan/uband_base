@@ -90,10 +90,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_i18n
-      sha256: ae96d3f630390dc5590b6bafef373aff342f651da5d1d146b57ff858b833d5ad
+      sha256: b71fe887697686368c93e4d2257ecdb3c35fe38686a6fbf3902d6355c3f20363
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.22.4"
+    version: "0.33.0"
   flutter_localizations:
     dependency: "direct main"
     description: flutter
@@ -109,14 +109,30 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  intl:
+  http:
     dependency: transitive
     description:
-      name: intl
-      sha256: "910f85bce16fb5c6f614e117efa303e85a1731bb0081edf3604a2ae6e9a3cc91"
+      name: http
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.17.0"
+    version: "0.13.6"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.0.2"
+  intl:
+    dependency: "direct overridden"
+    description:
+      name: intl
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.18.0"
   js:
     dependency: transitive
     description:
@@ -133,6 +149,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.5.0"
+  logging:
+    dependency: transitive
+    description:
+      name: logging
+      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -250,6 +274,22 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.4.16"
+  toml:
+    dependency: transitive
+    description:
+      name: toml
+      sha256: "157c5dca5160fced243f3ce984117f729c788bb5e475504f3dbcda881accee44"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.14.0"
+  typed_data:
+    dependency: transitive
+    description:
+      name: typed_data
+      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.3.2"
   vector_math:
     dependency: transitive
     description:
