@@ -37,7 +37,7 @@ extension WidgetEX on Widget {
         size: logicalSize,
         devicePixelRatio: 1.0,
       ),
-      window: window,
+      view: window,
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();

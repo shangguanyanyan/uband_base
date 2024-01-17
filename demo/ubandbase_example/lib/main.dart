@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  TabController tabController;
+  late TabController tabController;
 
   _buildTabBar(TabController controller) {
     return TabBar(
