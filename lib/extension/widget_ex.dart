@@ -37,7 +37,7 @@ extension WidgetEX on Widget {
         size: logicalSize,
         devicePixelRatio: 1.0,
       ),
-      view: window,
+      view: WidgetsBinding.instance.platformDispatcher.implicitView!,
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();
