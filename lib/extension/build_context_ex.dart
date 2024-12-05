@@ -45,7 +45,7 @@ extension BuildContextEX on BuildContext {
   }
 
   Color get backgroundColor {
-    return Theme.of(this).backgroundColor;
+    return Theme.of(this).scaffoldBackgroundColor;
   }
 
   NavigatorState get rootNavigator {

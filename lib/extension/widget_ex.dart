@@ -34,10 +34,10 @@ extension WidgetEX on Widget {
         child: repaintBoundary,
       ),
       configuration: ViewConfiguration(
-        size: logicalSize,
+        //size: logicalSize,
         devicePixelRatio: 1.0,
       ),
-      view: WidgetsBinding.instance.platformDispatcher.implicitView!,
+       view: window,
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();

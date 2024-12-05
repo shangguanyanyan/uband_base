@@ -1,11 +1,9 @@
 name: ubandbase
 description: uband base widget
 version: 0.3.3
-author: "bing ma"
-homepage:
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
   flutter:
