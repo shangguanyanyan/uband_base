@@ -50,7 +50,7 @@ class SliverValueConstraints<T> extends SliverConstraints {
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
       axisDirection,
       growthDirection,
       scrollOffset,
