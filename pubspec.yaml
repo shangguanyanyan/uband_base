@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  rxdart: ^0.26.0
+  rxdart: ^0.28.0
   # 提供 json 解析注解
   json_annotation: ^4.0.1
   # 状态管理框架
@@ -35,7 +35,7 @@ dependencies:
   # 支持不同平台下打开 URL https://pub.flutter-io.cn/packages/url_launcher
   #url_launcher: ^6.0.12
   # 国际化 https://pub.flutter-io.cn/packages/flutter_i18n
-  flutter_i18n: ^0.33.0
+  flutter_i18n: ^0.36.2
   # toast https://pub.flutter-io.cn/packages/fluttertoast
   #fluttertoast: ^8.0.3
   # 日志打印 https://pub.flutter-io.cn/packages/logger
@@ -47,7 +47,7 @@ dependencies:
   # 可用于 sliver 的粘性头部组件
   #flutter_sticky_header: ^0.5.0
   # 本地临时存储
-  #shared_preferences: ^2.0.5
+  shared_preferences: ^2.0.15
   #image_picker: ^0.7.3
   #camera: ^0.9.4+3
 

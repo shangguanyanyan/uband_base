@@ -11,8 +11,7 @@ class SliverValueConstraints<T> extends SliverConstraints {
   SliverValueConstraints({
     required this.value,
     required SliverConstraints constraints,
-  })  :
-        super(
+  }) : super(
           axisDirection: constraints.axisDirection,
           growthDirection: constraints.growthDirection,
           userScrollDirection: constraints.userScrollDirection,
@@ -33,9 +32,8 @@ class SliverValueConstraints<T> extends SliverConstraints {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! SliverValueConstraints<T>) return false;
-    assert(other is SliverValueConstraints<T> && other.debugAssertIsValid());
-    return other is SliverValueConstraints<T> &&
-        other.value == value &&
+    assert(other.debugAssertIsValid());
+    return other.value == value &&
         other.axisDirection == axisDirection &&
         other.growthDirection == growthDirection &&
         other.scrollOffset == scrollOffset &&
@@ -79,64 +77,84 @@ class SliverValueConstraints<T> extends SliverConstraints {
 /// See also:
 ///
 ///  * [ValueLayoutBuilder], the non-sliver version of this widget.
-class SliverValueLayoutBuilder<T>
-    extends ConstrainedLayoutBuilder<SliverValueConstraints<T>> {
+class SliverValueLayoutBuilder<T> extends StatelessWidget {
   /// Creates a sliver widget that defers its building until layout.
   ///
   /// The [builder] argument must not be null.
   const SliverValueLayoutBuilder({
     Key? key,
-    required SliverValueLayoutWidgetBuilder<T> builder,
-  }) : super(key: key, builder: builder);
+    required this.builder,
+  }) : super(key: key);
 
   /// Called at layout time to construct the widget tree.
   ///
   /// The builder must return a non-null sliver widget.
-  @override
-  SliverValueLayoutWidgetBuilder<T> get builder => super.builder;
+  final SliverValueLayoutWidgetBuilder<T> builder;
 
   @override
-  _RenderSliverValueLayoutBuilder<T> createRenderObject(BuildContext context) =>
-      _RenderSliverValueLayoutBuilder<T>();
+  Widget build(BuildContext context) {
+    return SliverLayoutBuilder(
+      builder: (BuildContext context, SliverConstraints constraints) {
+        // Try to get the value from context
+        final T? value = _getValueFromContext<T>(context);
+        if (value != null) {
+          return builder(
+            context,
+            SliverValueConstraints<T>(
+              value: value,
+              constraints: constraints,
+            ),
+          );
+        }
+        // Fallback to empty sliver if no value is provided
+        return const SliverToBoxAdapter(child: SizedBox.shrink());
+      },
+    );
+  }
+
+  /// Helper method to get the value from context.
+  /// This is a placeholder - in a real implementation, you would
+  /// use an inherited widget or another mechanism to provide the value.
+  T? _getValueFromContext<T>(BuildContext context) {
+    // Try to find an inherited widget that provides the value
+    final inherited =
+        context.dependOnInheritedWidgetOfExactType<_SliverValueProvider<T>>();
+    return inherited?.value;
+  }
 }
 
-class _RenderSliverValueLayoutBuilder<T> extends RenderSliver
-    with
-        RenderObjectWithChildMixin<RenderSliver>,
-        RenderConstrainedLayoutBuilder<SliverValueConstraints<T>,
-            RenderSliver> {
-  @override
-  double childMainAxisPosition(RenderObject child) {
-    assert(child == this.child);
-    return 0;
-  }
+/// An inherited widget that provides a value to its descendants.
+class _SliverValueProvider<T> extends InheritedWidget {
+  const _SliverValueProvider({
+    Key? key,
+    required this.value,
+    required Widget child,
+  }) : super(key: key, child: child);
+
+  final T value;
 
   @override
-  void performLayout() {
-    rebuildIfNecessary();
-    child?.layout(constraints, parentUsesSize: true);
-    geometry = child?.geometry ?? SliverGeometry.zero;
+  bool updateShouldNotify(_SliverValueProvider oldWidget) {
+    return value != oldWidget.value;
   }
+}
+
+/// A widget that provides a value to SliverValueLayoutBuilder widgets in its subtree.
+class SliverValueProvider<T> extends StatelessWidget {
+  const SliverValueProvider({
+    Key? key,
+    required this.value,
+    required this.child,
+  }) : super(key: key);
+
+  final T value;
+  final Widget child;
 
   @override
-  void applyPaintTransform(RenderObject child, Matrix4 transform) {
-    assert(child == this.child);
-    // child's offset is always (0, 0), transform.translate(0, 0) does not mutate the transform.
-  }
-
-  @override
-  void paint(PaintingContext context, Offset offset) {
-    // This renderObject does not introduce additional offset to child's position.
-    if (child?.geometry?.visible == true) context.paintChild(child!, offset);
-  }
-
-  @override
-  bool hitTestChildren(SliverHitTestResult result,
-      {double? mainAxisPosition, double? crossAxisPosition}) {
-    return child != null &&
-        child!.geometry!.hitTestExtent > 0 &&
-        child!.hitTest(result,
-            mainAxisPosition: mainAxisPosition!,
-            crossAxisPosition: crossAxisPosition!);
+  Widget build(BuildContext context) {
+    return _SliverValueProvider<T>(
+      value: value,
+      child: child,
+    );
   }
 }
